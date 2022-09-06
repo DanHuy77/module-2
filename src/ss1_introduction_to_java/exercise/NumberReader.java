@@ -10,6 +10,9 @@ public class NumberReader {
         String result = "";
         if (number >= 0 && number <= 10) {
             switch (number) {
+                case 0:
+                    result += "Zero";
+                    break;
                 case 1:
                     result += "One";
                     break;
@@ -74,7 +77,7 @@ public class NumberReader {
 
             }
             System.out.println(result);
-        } else if (number > 20 && number < 100) {
+        } else if (number >= 20 && number < 100) {
             int tens = number / 10;
             int ones = number % 10;
             String tenS = "";
