@@ -1,6 +1,5 @@
 package ss3_array_and_method.exercise;
 
-import javax.swing.*;
 import java.util.Arrays;
 
 public class AddArray {
