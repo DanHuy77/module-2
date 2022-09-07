@@ -15,7 +15,7 @@ public class AddArray {
             array3[i] = array1[i];
         }
         for (int j = 0; j <array2.length ; j++) {
-            array3[j +array1.length] = array2[j];
+            array3[j + array1.length] = array2[j];
         }
         System.out.println(Arrays.toString(array3));
     }

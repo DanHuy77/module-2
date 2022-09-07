@@ -17,8 +17,8 @@ public class RemoveElementFromArray {
     }
 
     public static void main(String[] args) {
-        int element = 7;
-        int[] arr = {10, 4, 6, 7, 8, 6, 0, 0, 0, 0};
+        int element = 1;
+        int[] arr = {1, 2, 1, 1, 1, 1};
         removeElement(element, arr);
         System.out.println(Arrays.toString(arr));
     }
