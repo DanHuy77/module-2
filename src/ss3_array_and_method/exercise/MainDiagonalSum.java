@@ -18,9 +18,16 @@ public class MainDiagonalSum {
             }
         }
         double sum = 0.0;
-        for (int i = 0; i <floatArr.length ; i++) {
+        for (int i = 0; i < floatArr.length; i++) {
             sum += floatArr[i][i];
         }
+
+        double sum1 = 0.0;
+        for (int i = 0; i < floatArr.length; i++) {
+            sum1 += floatArr[i][floatArr.length - 1 - i];
+        }
+
         System.out.println("Tổng của các phần tử ở đường chéo chính: " + sum);
+        System.out.println("Tổng đường chéo phụ: " + sum1);
     }
 }

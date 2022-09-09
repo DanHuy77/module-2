@@ -8,7 +8,7 @@ public class TimesOfCharAppearsInString {
         System.out.println("Nhập 1 chuỗi");
         String str = input.nextLine();
         System.out.println("Nhập ký tự");
-        char ch = input.next().charAt(0);
+        char ch = input.nextLine().charAt(0);
         String ch1 = Character.toString(ch);
         String[] arrStr = str.split("");
         int count = 0;
