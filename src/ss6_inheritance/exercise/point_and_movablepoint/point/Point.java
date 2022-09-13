@@ -31,8 +31,8 @@ public class Point {
     }
 
     public void setXY(float x, float y){
-        this.x = x;
-        this.y = y;
+        setX(x);
+        setY(y);
     }
 
     public float[] getXY(){
@@ -40,6 +40,6 @@ public class Point {
     }
 
     public String toString(){
-        return "Địa điểm có tọa độ: " + Arrays.toString(getXY());
+        return "Địa điểm có tọa độ: " + String.format("(%.1f,%.1f)",getX(),getY());
     }
 }

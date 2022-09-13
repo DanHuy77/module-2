@@ -35,12 +35,13 @@ public class Point2D {
     }
 
     public Point2D(float x, float y) {
-        this.x = x;
-        this.y = y;
+        setX(x);
+        setY(y);
     }
 
     public String toString() {
-        return "Điểm có tọa độ là: " + Arrays.toString(getXY());
+
+        return "Điểm có tọa độ là: " + String.format("(%.2f,%.2f)",getX(), getY());
     }
 
 }

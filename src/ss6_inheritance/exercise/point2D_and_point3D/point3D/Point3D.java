@@ -25,15 +25,15 @@ public class Point3D extends Point2D {
 
     public void setXYZ(float x, float y, float z) {
         super.setXY(x, y);
-        this.z = z;
+        setZ(z);
     }
 
     public float[] getXYZ() {
-        return new float[]{super.getX(), super.getY(), this.z};
+        return new float[]{super.getX(), super.getY(), getZ()};
     }
 
 
     public String toString(){
-        return "Điểm có tọa độ: " + Arrays.toString(getXYZ());
+        return String.format("(%.2f,%2f,%2f)",getX(),getY(),getZ());
     }
 }
