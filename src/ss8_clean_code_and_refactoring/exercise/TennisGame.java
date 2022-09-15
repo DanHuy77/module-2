@@ -1,17 +1,19 @@
 package ss8_clean_code_and_refactoring.exercise;
 
 public class TennisGame {
-    public static String getScore(String player1Name, String player2Name, int player1Score, int player2Score) {
-        final String FIRST_SCORE = "Love";
-        final String SECOND_SCORE = "Fifteen";
-        final String THIRD_SCORE = "Thirty";
-        final String FOURTH_SCORE = "Forty";
-        final String ALL = "-All";
+    public static final String FIRST_SCORE = "Love";
+    public static final String SECOND_SCORE = "Fifteen";
+    public static final String THIRD_SCORE = "Thirty";
+    public static final String FOURTH_SCORE = "Forty";
+    public static final String ALL = "-All";
 
-        final int PLAYER_GET_POINT_1ST = 0;
-        final int PLAYER_GET_POINT_2ND = 1;
-        final int PLAYER_GET_POINT_3RD = 2;
-        final int PLAYER_GET_POINT_4TH = 3;
+    public static final int PLAYER_GET_POINT_1ST = 0;
+    public static final int PLAYER_GET_POINT_2ND = 1;
+    public static final int PLAYER_GET_POINT_3RD = 2;
+    public static final int PLAYER_GET_POINT_4TH = 3;
+
+    public static String getScore(String player1Name, String player2Name, int player1Score, int player2Score) {
+
 
         String gameScore = "";
         int tempScore = 0;
