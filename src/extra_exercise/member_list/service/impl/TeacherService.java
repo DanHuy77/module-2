@@ -1,31 +1,31 @@
 package extra_exercise.member_list.service.impl;
 
-import extra_exercise.member_list.model.Student;
+import extra_exercise.member_list.model.Teacher;
 import extra_exercise.member_list.service.IMemberService;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class StudentService implements IMemberService {
+public class TeacherService implements IMemberService {
     private static final Scanner input = new Scanner(System.in);
-    private static final List<Student> studentList = new ArrayList<>();
+    private static final List<Teacher> teacherList = new ArrayList<>();
 
-    public Student inputStudentInformation() {
-        System.out.print("Nhập mã học sinh: ");
+    public Teacher inputTeacherInformation() {
+        System.out.print("Nhập mã giáo viên: ");
         String code = input.nextLine();
-        System.out.print("Nhập tên học sinh: ");
+        System.out.print("Nhập tên giáo viên");
         String name = input.nextLine();
 
         String birthday;
         do {
-            System.out.print("Nhập ngày sinh của học sinh. (Định dạng: dd/mm/yyyy): ");
+            System.out.print("Nhập ngày sinh của giáo viên. (Định dạng: dd/mm/yyyy): ");
             birthday = input.nextLine();
             if (!birthday.matches("([0-9]{2})/([0-9]{2})/([0-9]{4})")) {
                 System.out.println(("Không đúng định đạng, mời nhập lại."));
             }
         } while (!birthday.matches("([0-9]{2})/([0-9]{2})/([0-9]{4})"));
-        System.out.print("Nhập giới tính học sinh: ");
+        System.out.print("Nhập giới tính học sinh");
         String gender = input.nextLine();
         if (gender.equals("Nam")) {
             gender = "Nam";
@@ -34,35 +34,31 @@ public class StudentService implements IMemberService {
         } else {
             gender = "Undefined. ";
         }
+        System.out.print("Nhập chuyên môn giáo viên: ");
+        String specialization = input.nextLine();
 
-        System.out.print("Nhập tên lớp của học sinh: ");
-        String className = input.nextLine();
-
-        System.out.print("Nhập điểm học sinh: ");
-        double point = Double.parseDouble(input.nextLine());
-
-        return new Student(code, name, birthday, gender, className, point);
+        return new Teacher(code, name, birthday, gender, specialization);
     }
 
     @Override
     public void addMember() {
-        Student student = this.inputStudentInformation();
+        Teacher teacher = this.inputTeacherInformation();
 
-        studentList.add(student);
+        teacherList.add(teacher);
         System.out.println("Thêm mới thành công");
     }
 
     @Override
     public void removeMember() {
-        System.out.print("Mời bạn nhập mã học sinh cần xóa: ");
+        System.out.print("Mời bạn nhập mã giáo viên cần xóa: ");
         String code = input.nextLine();
         boolean flagDelete = false;
-        for (int i = 0; i < studentList.size(); i++) {
-            if (studentList.get(i).getCode().equals(code)) {
+        for (int i = 0; i < teacherList.size(); i++) {
+            if (teacherList.get(i).getCode().equals(code)) {
                 System.out.println("Bạn có chắc muốn xóa học sinh này không? Nhập Y: yes, N: no");
                 String choice = input.nextLine();
                 if (choice.equals("Y")) {
-                    studentList.remove(i);
+                    teacherList.remove(i);
                     System.out.println("Xóa thành công");
                 }
                 flagDelete = true;
@@ -74,13 +70,15 @@ public class StudentService implements IMemberService {
         }
     }
 
+
     @Override
     public void displayList() {
-        if (studentList.size()!=0){
-        for (Student student : studentList) {
-            System.out.println(student);
-        }
-    } else {
+        if (teacherList.size() != 0) {
+            for (Teacher teacher : teacherList) {
+                System.out.println(teacher);
+            }
+
+        } else {
             System.out.println("Danh sách hiện tại không có thành viên nào.");
         }
     }

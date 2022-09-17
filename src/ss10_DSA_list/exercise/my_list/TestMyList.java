@@ -34,20 +34,15 @@ public class TestMyList {
 
     public static void main(String[] args) {
         Student a = new Student(1, "Huy");
-        Student b = new Student(2, "Ngô");
-        Student c = new Student(3, "Hoàng");
-        Student d = new Student(4, "Trúc");
-        Student e = new Student(5, "My");
-        Student f = new Student(6, "Ny");
+        Student b = new Student(2, "Ngọc");
+        Student c = new Student(3, "Lân");
 
         MyList<Student> studentMyList = new MyList<>();
         MyList<Student> newStudentMyList = new MyList<>();
         studentMyList.add(a);
         studentMyList.add(b);
         studentMyList.add(c);
-        studentMyList.add(d);
-        studentMyList.add(e);
-        studentMyList.add(2, f);
+
 
         System.out.println(studentMyList.size());
         System.out.println("--------------------------------");
