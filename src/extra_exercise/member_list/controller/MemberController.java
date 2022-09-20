@@ -67,7 +67,6 @@ public class MemberController {
                     break;
                 case 4:
                     System.exit(0);
-                    return;
             }
         }
     }
