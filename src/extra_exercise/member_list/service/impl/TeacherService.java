@@ -14,7 +14,7 @@ public class TeacherService implements IMemberService {
     public Teacher inputTeacherInformation() {
         System.out.print("Nhập mã giáo viên: ");
         String code = input.nextLine();
-        System.out.print("Nhập tên giáo viên");
+        System.out.print("Nhập tên giáo viên: ");
         String name = input.nextLine();
 
         String birthday;
@@ -25,7 +25,7 @@ public class TeacherService implements IMemberService {
                 System.out.println(("Không đúng định đạng, mời nhập lại."));
             }
         } while (!birthday.matches("([0-9]{2})/([0-9]{2})/([0-9]{4})"));
-        System.out.print("Nhập giới tính học sinh");
+        System.out.print("Nhập giới tính giáo viên: ");
         String gender = input.nextLine();
         if (gender.equals("Nam")) {
             gender = "Nam";
@@ -82,4 +82,17 @@ public class TeacherService implements IMemberService {
             System.out.println("Danh sách hiện tại không có thành viên nào.");
         }
     }
-}
+
+    @Override
+    public boolean searchByName(String name) {
+        boolean flagSearch = false;
+        for (int i = 0; i < teacherList.size(); i++) {
+            if (teacherList.get(i).getName().contains(name)){
+                System.out.println("Những giáo viên khớp với tìm kiếm");
+                System.out.println(teacherList.get(i));
+                flagSearch = true;
+            }
+        }
+        return flagSearch;
+        }
+    }

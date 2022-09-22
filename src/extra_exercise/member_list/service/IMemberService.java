@@ -7,4 +7,6 @@ public interface IMemberService {
 
     void displayList();
 
+    boolean searchByName(String name);
+
 }

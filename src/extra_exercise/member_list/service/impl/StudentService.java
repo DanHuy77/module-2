@@ -84,4 +84,19 @@ public class StudentService implements IMemberService {
             System.out.println("Danh sách hiện tại không có thành viên nào.");
         }
     }
+
+    @Override
+    public boolean searchByName(String name) {
+        boolean flagSearch = false;
+        for (int i = 0; i < studentList.size(); i++) {
+            if (studentList.get(i).getName().contains(name)){
+                System.out.println("Những học sinh khớp với tìm kiếm");
+                System.out.println(studentList.get(i));
+                flagSearch = true;
+
+            }
+        }
+
+        return flagSearch;
+    }
 }
