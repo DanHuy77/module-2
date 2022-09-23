@@ -9,4 +9,6 @@ public interface IMemberService {
 
     boolean searchByName(String name);
 
+    boolean searchByID(int ID);
+
 }

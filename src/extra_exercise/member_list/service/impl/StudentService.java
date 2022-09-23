@@ -35,13 +35,16 @@ public class StudentService implements IMemberService {
             gender = "Undefined. ";
         }
 
+        System.out.print("Nhập ID học sinh: ");
+        int ID = Integer.parseInt(input.nextLine());
+
         System.out.print("Nhập tên lớp của học sinh: ");
         String className = input.nextLine();
 
         System.out.print("Nhập điểm học sinh: ");
         double point = Double.parseDouble(input.nextLine());
 
-        return new Student(code, name, birthday, gender, className, point);
+        return new Student(code, name, birthday, gender, ID, className, point);
     }
 
     @Override
@@ -97,6 +100,19 @@ public class StudentService implements IMemberService {
             }
         }
 
+        return flagSearch;
+    }
+
+    @Override
+    public boolean searchByID(int ID) {
+        boolean flagSearch = false;
+        for (int i = 0; i < studentList.size(); i++) {
+            if (studentList.get(i).getID() == ID){
+                System.out.println("Những học sinh khớp với tìm kiếm");
+                System.out.println(studentList.get(i));
+                flagSearch = true;
+            }
+        }
         return flagSearch;
     }
 }

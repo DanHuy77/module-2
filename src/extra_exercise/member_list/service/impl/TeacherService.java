@@ -27,6 +27,7 @@ public class TeacherService implements IMemberService {
         } while (!birthday.matches("([0-9]{2})/([0-9]{2})/([0-9]{4})"));
         System.out.print("Nhập giới tính giáo viên: ");
         String gender = input.nextLine();
+
         if (gender.equals("Nam")) {
             gender = "Nam";
         } else if (gender.equals("Nữ")) {
@@ -34,10 +35,13 @@ public class TeacherService implements IMemberService {
         } else {
             gender = "Undefined. ";
         }
+        System.out.print("Nhập ID giáo viên: ");
+        int ID = Integer.parseInt(input.nextLine());
         System.out.print("Nhập chuyên môn giáo viên: ");
         String specialization = input.nextLine();
 
-        return new Teacher(code, name, birthday, gender, specialization);
+
+        return new Teacher(code, name, birthday, gender, ID, specialization);
     }
 
     @Override
@@ -95,4 +99,17 @@ public class TeacherService implements IMemberService {
         }
         return flagSearch;
         }
+
+    @Override
+    public boolean searchByID(int ID) {
+        boolean flagSearch = false;
+        for (int i = 0; i < teacherList.size(); i++) {
+            if (teacherList.get(i).getID() == ID){
+                System.out.println("Những giáo viên khớp với tìm kiếm");
+                System.out.println(teacherList.get(i));
+                flagSearch = true;
+            }
+        }
+        return flagSearch;
     }
+}

@@ -5,11 +5,12 @@ public abstract class Person {
     private String name;
     private String birthday;
     private String gender;
+    private int ID;
 
     public Person() {
     }
 
-    public Person(String code, String name, String birthday, String gender) {
+    public Person(String code, String name, String birthday, String gender, int ID) {
         this.code = code;
         this.name = name;
         this.birthday = birthday;
@@ -48,12 +49,22 @@ public abstract class Person {
         this.gender = gender;
     }
 
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
     @Override
     public String toString() {
-        return "Member" +
+        return "Person{" +
                 "code='" + code + '\'' +
                 ", name='" + name + '\'' +
                 ", birthday='" + birthday + '\'' +
-                ", gender='" + gender + '\'';
+                ", gender='" + gender + '\'' +
+                ", ID=" + ID +
+                '}';
     }
 }
