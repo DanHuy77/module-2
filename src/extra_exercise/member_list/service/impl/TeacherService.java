@@ -1,9 +1,11 @@
 package extra_exercise.member_list.service.impl;
 
+import extra_exercise.member_list.model.Student;
 import extra_exercise.member_list.model.Teacher;
 import extra_exercise.member_list.service.IMemberService;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -35,13 +37,12 @@ public class TeacherService implements IMemberService {
         } else {
             gender = "Undefined. ";
         }
-        System.out.print("Nhập ID giáo viên: ");
-        int ID = Integer.parseInt(input.nextLine());
+
         System.out.print("Nhập chuyên môn giáo viên: ");
         String specialization = input.nextLine();
 
 
-        return new Teacher(code, name, birthday, gender, ID, specialization);
+        return new Teacher(code, name, birthday, gender, specialization);
     }
 
     @Override
@@ -91,25 +92,45 @@ public class TeacherService implements IMemberService {
     public boolean searchByName(String name) {
         boolean flagSearch = false;
         for (int i = 0; i < teacherList.size(); i++) {
-            if (teacherList.get(i).getName().contains(name)){
+            if (teacherList.get(i).getName().contains(name)) {
                 System.out.println("Những giáo viên khớp với tìm kiếm");
                 System.out.println(teacherList.get(i));
                 flagSearch = true;
             }
         }
         return flagSearch;
-        }
+    }
 
     @Override
-    public boolean searchByID(int ID) {
+    public boolean searchByCode(String code) {
         boolean flagSearch = false;
         for (int i = 0; i < teacherList.size(); i++) {
-            if (teacherList.get(i).getID() == ID){
+            if (teacherList.get(i).getCode().equals(code)) {
                 System.out.println("Những giáo viên khớp với tìm kiếm");
                 System.out.println(teacherList.get(i));
                 flagSearch = true;
             }
         }
         return flagSearch;
+    }
+
+
+    public void sortByNameOrID() {
+        for (int i = 0; i < teacherList.size(); i++) {
+            for (int j = teacherList.size() - 1; j > i; j--) {
+                if (teacherList.get(j).getName().compareTo(teacherList.get(j - 1).getName()) < 0) {
+                    Teacher temp = teacherList.get(j);
+                    teacherList.set(j, teacherList.get(j - 1));
+                    teacherList.set(j - 1, temp);
+                }
+                if (teacherList.get(j).getName().compareTo(teacherList.get(j - 1).getName()) == 0) {
+                    if (teacherList.get(j).getCode().compareTo(teacherList.get(j - 1).getCode()) < 0) {
+                        Teacher temp = teacherList.get(j);
+                        teacherList.set(j, teacherList.get(j - 1));
+                        teacherList.set(j - 1, temp);
+                    }
+                }
+            }
+        }
     }
 }

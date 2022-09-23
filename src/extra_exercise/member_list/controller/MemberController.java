@@ -19,8 +19,9 @@ public class MemberController {
             System.out.println("2. Hiển thị danh sách thành viên");
             System.out.println("3. Xóa thành viên");
             System.out.println("4. Tìm kiếm thành viên theo tên");
-            System.out.println("5. Tìm kiếm thành viên theo ID");
-            System.out.println("6. Thoát\n");
+            System.out.println("5. Tìm kiếm thành viên theo mã thành viên");
+            System.out.println("6. Sắp xếp theo tên thành viên");
+            System.out.println("7. Thoát\n");
             System.out.print("Nhập lựa chọn: ");
             int choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
@@ -71,26 +72,36 @@ public class MemberController {
                 case 4:
                     System.out.println("Mời nhập tên thành viên cần tìm: ");
                     String name = scanner.nextLine();
-//                    iStudentService.searchByName(name);
-//                    iTeacherService.searchByName(name);
                     boolean isFound = iStudentService.searchByName(name) && iTeacherService.searchByName(name);
-                    if (!isFound){
+                    if (!isFound) {
                         System.out.println("Không tìm thấy thành viên");
                     }
                     break;
 
-                    case 5:
-                        System.out.println("Mời nhập mã thành viên cần tìm: ");
-                        int ID = Integer.parseInt(scanner.nextLine());
-//                    iStudentService.searchByName(name);
-//                    iTeacherService.searchByName(name);
-                        boolean isFoundByCode = iStudentService.searchByID(ID) && iTeacherService.searchByID(ID);
-                        if (!isFoundByCode){
-                            System.out.println("Không tìm thấy thành viên");
-                        }
-                        break;
+                case 5:
+                    System.out.println("Mời nhập mã thành viên cần tìm: ");
+                    String code = scanner.nextLine();
+                    boolean isFoundByCode = iStudentService.searchByCode(code) && iTeacherService.searchByCode(code);
+                    if (!isFoundByCode) {
+                        System.out.println("Không tìm thấy thành viên");
+                    }
+                    break;
 
                 case 6:
+                    System.out.println("- Hãy lựa chọn -");
+                    System.out.println("1. Sắp xếp danh sách học sinh");
+                    System.out.println("2. Sắp xếp danh sách giáo viên\n");
+                    System.out.print("Nhập lựa chọn: ");
+                    int fifthChoice = Integer.parseInt(scanner.nextLine());
+                    if (fifthChoice == 1) {
+                        iStudentService.sortByNameOrID();
+                    } else if (fifthChoice == 2) {
+                        iTeacherService.sortByNameOrID();
+                    } else {
+                        System.out.println("Lựa chọn sai, xin chọn lại.");
+                    }
+                    break;
+                case 7:
                     System.out.println("Cảm ơn đã sử dụng ứng dụng");
                     System.exit(0);
                 default:

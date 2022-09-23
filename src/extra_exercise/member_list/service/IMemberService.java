@@ -1,5 +1,7 @@
 package extra_exercise.member_list.service;
 
+import extra_exercise.member_list.model.Teacher;
+
 public interface IMemberService {
     void addMember();
 
@@ -9,6 +11,8 @@ public interface IMemberService {
 
     boolean searchByName(String name);
 
-    boolean searchByID(int ID);
+    boolean searchByCode(String code);
+
+    void sortByNameOrID();
 
 }

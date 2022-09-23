@@ -1,11 +1,10 @@
 package extra_exercise.member_list.service.impl;
 
 import extra_exercise.member_list.model.Student;
+import extra_exercise.member_list.model.Teacher;
 import extra_exercise.member_list.service.IMemberService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class StudentService implements IMemberService {
     private static final Scanner input = new Scanner(System.in);
@@ -35,16 +34,13 @@ public class StudentService implements IMemberService {
             gender = "Undefined. ";
         }
 
-        System.out.print("Nhập ID học sinh: ");
-        int ID = Integer.parseInt(input.nextLine());
-
         System.out.print("Nhập tên lớp của học sinh: ");
         String className = input.nextLine();
 
         System.out.print("Nhập điểm học sinh: ");
         double point = Double.parseDouble(input.nextLine());
 
-        return new Student(code, name, birthday, gender, ID, className, point);
+        return new Student(code, name, birthday, gender, className, point);
     }
 
     @Override
@@ -79,11 +75,11 @@ public class StudentService implements IMemberService {
 
     @Override
     public void displayList() {
-        if (studentList.size()!=0){
-        for (Student student : studentList) {
-            System.out.println(student);
-        }
-    } else {
+        if (studentList.size() != 0) {
+            for (Student student : studentList) {
+                System.out.println(student);
+            }
+        } else {
             System.out.println("Danh sách hiện tại không có thành viên nào.");
         }
     }
@@ -92,7 +88,7 @@ public class StudentService implements IMemberService {
     public boolean searchByName(String name) {
         boolean flagSearch = false;
         for (int i = 0; i < studentList.size(); i++) {
-            if (studentList.get(i).getName().contains(name)){
+            if (studentList.get(i).getName().contains(name)) {
                 System.out.println("Những học sinh khớp với tìm kiếm");
                 System.out.println(studentList.get(i));
                 flagSearch = true;
@@ -104,10 +100,10 @@ public class StudentService implements IMemberService {
     }
 
     @Override
-    public boolean searchByID(int ID) {
+    public boolean searchByCode(String code) {
         boolean flagSearch = false;
         for (int i = 0; i < studentList.size(); i++) {
-            if (studentList.get(i).getID() == ID){
+            if (studentList.get(i).getCode().equals(code)) {
                 System.out.println("Những học sinh khớp với tìm kiếm");
                 System.out.println(studentList.get(i));
                 flagSearch = true;
@@ -115,4 +111,54 @@ public class StudentService implements IMemberService {
         }
         return flagSearch;
     }
+
+    @Override
+    public void sortByNameOrID() {
+//        Collections.sort(studentList, new Comparator<Student>() {
+//            @Override
+//            public int compare(Student o1, Student o2) {
+//
+//                String name1 = o1.getName().substring(o1.getName().lastIndexOf(" ") + 1);
+//                String name2 = o2.getName().substring(o2.getName().lastIndexOf(" ") + 1);
+//                int compareName = name1.compareTo(name2);
+//                if (compareName == 0) {
+//                    return o1.getCode().compareTo(o2.getCode());
+//                } else {
+//                    return compareName;
+//                }
+//            }
+//        });
+
+        for (int i = 0; i < studentList.size(); i++) {
+            for (int j = studentList.size() - 1; j > i; j--) {
+                if (studentList.get(j).getName().compareTo(studentList.get(j - 1).getName()) < 0) {
+                    Student temp = studentList.get(j);
+                    studentList.set(j, studentList.get(j - 1));
+                    studentList.set(j - 1, temp);
+                }
+                if (studentList.get(j).getName().compareTo(studentList.get(j - 1).getName()) == 0) {
+                    if (studentList.get(j).getCode().compareTo(studentList.get(j - 1).getCode()) < 0) {
+                        Student temp = studentList.get(j);
+                        studentList.set(j, studentList.get(j - 1));
+                        studentList.set(j - 1, temp);
+                    }
+                }
+            }
+        }
+
+
+    }
+
+
+    static {
+        Student student1 = new Student("st5", "Nguyễn Văn A", "20/20/2000", "Nam", "C07", 10);
+        Student student2 = new Student("st3", "Nguyễn Văn B", "20/20/2000", "Nam", "C07", 10);
+        Student student3 = new Student("st12", "Nguyễn Văn C", "20/20/2000", "Nam", "C07", 10);
+        Student student4 = new Student("st10", "Nguyễn Văn C", "22/22/2222", "Nam", "C07", 10);
+        studentList.add(student1);
+        studentList.add(student2);
+        studentList.add(student3);
+        studentList.add(student4);
+    }
 }
+
