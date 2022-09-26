@@ -1,10 +1,12 @@
 package extra_exercise.member_list.model;
 
+import java.time.LocalDate;
+
 public class Student extends Person {
     private String className;
     private double point;
 
-    public Student() {
+    public Student(String code, String name, String birthday, String gender, String className, double point) {
     }
 
     public Student(String className, double point) {
@@ -12,7 +14,7 @@ public class Student extends Person {
         this.point = point;
     }
 
-    public Student(String code, String name, String birthday, String gender, String className, double point) {
+    public Student(String code, String name, LocalDate birthday, String gender, String className, double point) {
         super(code, name, birthday, gender);
         this.className = className;
         this.point = point;

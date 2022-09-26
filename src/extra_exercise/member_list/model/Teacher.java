@@ -1,5 +1,7 @@
 package extra_exercise.member_list.model;
 
+import java.time.LocalDate;
+
 public class Teacher extends Person {
     private String specialization;
 
@@ -11,7 +13,7 @@ public class Teacher extends Person {
         this.specialization = specialization;
     }
 
-    public Teacher(String code, String name, String birthday, String gender, String specialization) {
+    public Teacher(String code, String name, LocalDate birthday, String gender, String specialization) {
         super(code, name, birthday, gender);
         this.specialization = specialization;
     }

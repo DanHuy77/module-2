@@ -1,44 +1,94 @@
 package extra_exercise.member_list.service.impl;
 
 import extra_exercise.member_list.model.Student;
-import extra_exercise.member_list.model.Teacher;
 import extra_exercise.member_list.service.IMemberService;
+import extra_exercise.member_list.service.utils.IllegalFullNameException;
+import extra_exercise.member_list.service.utils.IllegalGenderException;
+import extra_exercise.member_list.service.utils.IllegalInputException;
+import extra_exercise.member_list.service.utils.ValidPointException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
+
 
 public class StudentService implements IMemberService {
     private static final Scanner input = new Scanner(System.in);
     private static final List<Student> studentList = new ArrayList<>();
 
     public Student inputStudentInformation() {
-        System.out.print("Nhập mã học sinh: ");
-        String code = input.nextLine();
-        System.out.print("Nhập tên học sinh: ");
-        String name = input.nextLine();
+        String code;
+        while (true) {
 
-        String birthday;
-        do {
-            System.out.print("Nhập ngày sinh của học sinh. (Định dạng: dd/mm/yyyy): ");
-            birthday = input.nextLine();
-            if (!birthday.matches("([0-9]{2})/([0-9]{2})/([0-9]{4})")) {
-                System.out.println(("Không đúng định đạng, mời nhập lại."));
+            try {
+                System.out.print("Nhập mã học sinh (Chỉ chứa ký tự alphabet và số, độ dài từ 3~6 ký tự): ");
+                code = input.nextLine();
+                IllegalInputException.validInputCheck(code);
+                break;
+            } catch (IllegalInputException e) {
+                System.out.println(e.getMessage());;
             }
-        } while (!birthday.matches("([0-9]{2})/([0-9]{2})/([0-9]{4})"));
-        System.out.print("Nhập giới tính học sinh: ");
-        String gender = input.nextLine();
-        if (gender.equals("Nam")) {
-            gender = "Nam";
-        } else if (gender.equals("Nữ")) {
-            gender = "Nữ";
-        } else {
-            gender = "Undefined. ";
+        }
+        String name;
+        while (true) {
+            try {
+                System.out.print("Nhập tên học sinh: ");
+                name = input.nextLine();
+                IllegalFullNameException.nameCheck(name);
+                break;
+            } catch (IllegalFullNameException e) {
+                System.out.println(e.getMessage());
+            }
         }
 
-        System.out.print("Nhập tên lớp của học sinh: ");
-        String className = input.nextLine();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate birthday;
+        while (true) {
+            try {
+                System.out.print("Nhập ngày sinh học sinh (định dạng dd/MM/yyyy): ");
+                birthday = LocalDate.parse(input.nextLine(), formatter);
+                break;
+            } catch (DateTimeParseException e) {
+                System.out.println("Không đúng định dạng, xin nhập lại.");
+            }
+        }
 
-        System.out.print("Nhập điểm học sinh: ");
-        double point = Double.parseDouble(input.nextLine());
+        String gender;
+        while (true) {
+            System.out.print("Nhập giới tính học sinh: ");
+            gender = input.nextLine();
+            try {
+                IllegalGenderException.genderCheck(gender);
+                break;
+            } catch (IllegalGenderException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        String className;
+        while (true) {
+            System.out.print("Nhập tên lớp của học sinh (Chỉ chứa ký tự alphabet và số, độ dài từ 3~6 ký tự): ");
+            className = input.nextLine();
+            try {
+                IllegalInputException.validInputCheck(code);
+                break;
+            } catch (IllegalInputException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        double point;
+        while (true) {
+            System.out.print("Nhập điểm học sinh: ");
+            point = Double.parseDouble(input.nextLine());
+            try {
+                ValidPointException.pointCheck(point);
+                break;
+            } catch (ValidPointException e) {
+                System.out.println(e.getMessage());;
+            }
+        }
 
         return new Student(code, name, birthday, gender, className, point);
     }
@@ -151,10 +201,10 @@ public class StudentService implements IMemberService {
 
 
     static {
-        Student student1 = new Student("st5", "Nguyễn Văn A", "20/20/2000", "Nam", "C07", 10);
-        Student student2 = new Student("st3", "Nguyễn Văn B", "20/20/2000", "Nam", "C07", 10);
-        Student student3 = new Student("st12", "Nguyễn Văn C", "20/20/2000", "Nam", "C07", 10);
-        Student student4 = new Student("st10", "Nguyễn Văn C", "22/22/2222", "Nam", "C07", 10);
+        Student student1 = new Student("st5", "Nguyễn Văn A", "12/12/2000", "Nam", "C07", 10);
+        Student student2 = new Student("st3", "Nguyễn Văn B", "20 / 12 / 2000", "Nam", "C07", 10);
+        Student student3 = new Student("st12", "Nguyễn Văn C", "20 / 12 / 2000", "Nam", "C07", 10);
+        Student student4 = new Student("st10", "Nguyễn Văn C", "22 / 12 / 2222", "Nam", "C07", 10);
         studentList.add(student1);
         studentList.add(student2);
         studentList.add(student3);

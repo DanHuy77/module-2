@@ -1,11 +1,15 @@
 package extra_exercise.member_list.service.impl;
 
-import extra_exercise.member_list.model.Student;
 import extra_exercise.member_list.model.Teacher;
 import extra_exercise.member_list.service.IMemberService;
+import extra_exercise.member_list.service.utils.IllegalFullNameException;
+import extra_exercise.member_list.service.utils.IllegalGenderException;
+import extra_exercise.member_list.service.utils.IllegalInputException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,32 +18,73 @@ public class TeacherService implements IMemberService {
     private static final List<Teacher> teacherList = new ArrayList<>();
 
     public Teacher inputTeacherInformation() {
-        System.out.print("Nhập mã giáo viên: ");
-        String code = input.nextLine();
-        System.out.print("Nhập tên giáo viên: ");
-        String name = input.nextLine();
+        String code;
+        while (true) {
 
-        String birthday;
-        do {
-            System.out.print("Nhập ngày sinh của giáo viên. (Định dạng: dd/mm/yyyy): ");
-            birthday = input.nextLine();
-            if (!birthday.matches("([0-9]{2})/([0-9]{2})/([0-9]{4})")) {
-                System.out.println(("Không đúng định đạng, mời nhập lại."));
+            try {
+                System.out.print("Nhập mã giáo viên: ");
+                code = input.nextLine();
+                IllegalInputException.validInputCheck(code);
+                break;
+            } catch (IllegalInputException e) {
+                System.out.println(e.getMessage());
+                ;
             }
-        } while (!birthday.matches("([0-9]{2})/([0-9]{2})/([0-9]{4})"));
-        System.out.print("Nhập giới tính giáo viên: ");
-        String gender = input.nextLine();
-
-        if (gender.equals("Nam")) {
-            gender = "Nam";
-        } else if (gender.equals("Nữ")) {
-            gender = "Nữ";
-        } else {
-            gender = "Undefined. ";
         }
 
-        System.out.print("Nhập chuyên môn giáo viên: ");
-        String specialization = input.nextLine();
+        String name;
+        while (true) {
+
+            try {
+                System.out.print("Nhập tên giáo viên: ");
+                name = input.nextLine();
+                IllegalFullNameException.nameCheck(name);
+                break;
+            } catch (IllegalFullNameException e) {
+                System.out.println(e.getMessage());
+                ;
+            }
+        }
+
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate birthday;
+        while (true) {
+            try {
+                System.out.print("Nhập ngày sinh giáo viên (định dạng dd/MM/yyyy) :");
+                birthday = LocalDate.parse(input.nextLine(), formatter);
+                break;
+            } catch (DateTimeParseException e) {
+                System.out.println("Không đúng định dạng, xin nhập lại");
+            }
+        }
+
+        String gender;
+        while (true) {
+
+            try {
+                System.out.print("Nhập giới tính giáo viên: ");
+                gender = input.nextLine();
+                IllegalGenderException.genderCheck(gender);
+                break;
+            } catch (IllegalGenderException e) {
+                System.out.println(e.getMessage());
+                ;
+            }
+        }
+
+        String specialization;
+        while (true) {
+            System.out.print("Nhập chuyên môn giáo viên: ");
+            specialization = input.nextLine();
+            try {
+                IllegalFullNameException.nameCheck(specialization);
+                break;
+            } catch (IllegalFullNameException e) {
+                System.out.println(e.getMessage());
+                ;
+            }
+        }
 
 
         return new Teacher(code, name, birthday, gender, specialization);
