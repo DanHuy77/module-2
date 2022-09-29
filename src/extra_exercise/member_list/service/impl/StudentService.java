@@ -1,12 +1,14 @@
 package extra_exercise.member_list.service.impl;
 
+import extra_exercise.member_list.service.utils.files.WriteToFile;
 import extra_exercise.member_list.model.Student;
 import extra_exercise.member_list.service.IMemberService;
-import extra_exercise.member_list.service.utils.IllegalFullNameException;
-import extra_exercise.member_list.service.utils.IllegalGenderException;
-import extra_exercise.member_list.service.utils.IllegalInputException;
-import extra_exercise.member_list.service.utils.ValidPointException;
+import extra_exercise.member_list.service.utils.exception.IllegalFullNameException;
+import extra_exercise.member_list.service.utils.exception.IllegalGenderException;
+import extra_exercise.member_list.service.utils.exception.IllegalInputException;
+import extra_exercise.member_list.service.utils.exception.ValidPointException;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -15,7 +17,8 @@ import java.util.*;
 
 public class StudentService implements IMemberService {
     private static final Scanner input = new Scanner(System.in);
-    private static final List<Student> studentList = new ArrayList<>();
+    public static final List<Student> studentList = new ArrayList<>();
+    private static final WriteToFile writeToFile = new WriteToFile();
 
     public Student inputStudentInformation() {
         String code;
@@ -27,7 +30,8 @@ public class StudentService implements IMemberService {
                 IllegalInputException.validInputCheck(code);
                 break;
             } catch (IllegalInputException e) {
-                System.out.println(e.getMessage());;
+                System.out.println(e.getMessage());
+                ;
             }
         }
         String name;
@@ -86,7 +90,8 @@ public class StudentService implements IMemberService {
                 ValidPointException.pointCheck(point);
                 break;
             } catch (ValidPointException e) {
-                System.out.println(e.getMessage());;
+                System.out.println(e.getMessage());
+                ;
             }
         }
 
@@ -94,15 +99,17 @@ public class StudentService implements IMemberService {
     }
 
     @Override
-    public void addMember() {
+    public void addMember() throws IOException {
         Student student = this.inputStudentInformation();
 
         studentList.add(student);
+
+        writeToFile.addFileStudent();
         System.out.println("Thêm mới thành công");
     }
 
     @Override
-    public void removeMember() {
+    public void removeMember() throws IOException {
         System.out.print("Mời bạn nhập mã học sinh cần xóa: ");
         String code = input.nextLine();
         boolean flagDelete = false;
@@ -121,6 +128,7 @@ public class StudentService implements IMemberService {
         if (!flagDelete) {
             System.out.println("Không tìm thấy đối tượng cần xóa.");
         }
+    writeToFile.addFileStudent();
     }
 
     @Override
@@ -200,15 +208,17 @@ public class StudentService implements IMemberService {
     }
 
 
-    static {
-        Student student1 = new Student("st5", "Nguyễn Văn A", "12/12/2000", "Nam", "C07", 10);
-        Student student2 = new Student("st3", "Nguyễn Văn B", "20 / 12 / 2000", "Nam", "C07", 10);
-        Student student3 = new Student("st12", "Nguyễn Văn C", "20 / 12 / 2000", "Nam", "C07", 10);
-        Student student4 = new Student("st10", "Nguyễn Văn C", "22 / 12 / 2222", "Nam", "C07", 10);
-        studentList.add(student1);
-        studentList.add(student2);
-        studentList.add(student3);
-        studentList.add(student4);
-    }
+//    static {
+//        Student student1 = new Student("st5", "Nguyễn Văn A", "12/12/2000", "Nam", "C07", 10);
+//        Student student2 = new Student("st3", "Nguyễn Văn B", "20 / 12 / 2000", "Nam", "C07", 10);
+//        Student student3 = new Student("st12", "Nguyễn Văn C", "20 / 12 / 2000", "Nam", "C07", 10);
+//        Student student4 = new Student("st10", "Nguyễn Văn C", "22 / 12 / 2222", "Nam", "C07", 10);
+//        studentList.add(student1);
+//        studentList.add(student2);
+//        studentList.add(student3);
+//        studentList.add(student4);
+//    }
+
+
 }
 

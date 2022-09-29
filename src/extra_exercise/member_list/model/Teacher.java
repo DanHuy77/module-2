@@ -28,7 +28,6 @@ public class Teacher extends Person {
 
     @Override
     public String toString() {
-        return super.toString() + "Job: Teacher, " +
-                "specialization='" + specialization + '\'';
+        return super.toString() + specialization;
     }
 }

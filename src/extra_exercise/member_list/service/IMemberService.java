@@ -2,10 +2,12 @@ package extra_exercise.member_list.service;
 
 import extra_exercise.member_list.model.Teacher;
 
-public interface IMemberService {
-    void addMember();
+import java.io.IOException;
 
-    void removeMember();
+public interface IMemberService {
+    void addMember() throws IOException;
+
+    void removeMember() throws IOException;
 
     void displayList();
 

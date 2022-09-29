@@ -1,11 +1,13 @@
 package extra_exercise.member_list.service.impl;
 
+import extra_exercise.member_list.service.utils.files.WriteToFile;
 import extra_exercise.member_list.model.Teacher;
 import extra_exercise.member_list.service.IMemberService;
-import extra_exercise.member_list.service.utils.IllegalFullNameException;
-import extra_exercise.member_list.service.utils.IllegalGenderException;
-import extra_exercise.member_list.service.utils.IllegalInputException;
+import extra_exercise.member_list.service.utils.exception.IllegalFullNameException;
+import extra_exercise.member_list.service.utils.exception.IllegalGenderException;
+import extra_exercise.member_list.service.utils.exception.IllegalInputException;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -15,7 +17,8 @@ import java.util.Scanner;
 
 public class TeacherService implements IMemberService {
     private static final Scanner input = new Scanner(System.in);
-    private static final List<Teacher> teacherList = new ArrayList<>();
+    public static final List<Teacher> teacherList = new ArrayList<>();
+    private static final WriteToFile writeToFile1 = new WriteToFile();
 
     public Teacher inputTeacherInformation() {
         String code;
@@ -69,7 +72,6 @@ public class TeacherService implements IMemberService {
                 break;
             } catch (IllegalGenderException e) {
                 System.out.println(e.getMessage());
-                ;
             }
         }
 
@@ -91,15 +93,17 @@ public class TeacherService implements IMemberService {
     }
 
     @Override
-    public void addMember() {
+    public void addMember() throws IOException {
         Teacher teacher = this.inputTeacherInformation();
 
         teacherList.add(teacher);
+
+        writeToFile1.addFileTeacher();
         System.out.println("Thêm mới thành công");
     }
 
     @Override
-    public void removeMember() {
+    public void removeMember() throws IOException {
         System.out.print("Mời bạn nhập mã giáo viên cần xóa: ");
         String code = input.nextLine();
         boolean flagDelete = false;
@@ -118,6 +122,7 @@ public class TeacherService implements IMemberService {
         if (!flagDelete) {
             System.out.println("Không tìm thấy đối tượng cần xóa.");
         }
+        writeToFile1.addFileTeacher();
     }
 
 

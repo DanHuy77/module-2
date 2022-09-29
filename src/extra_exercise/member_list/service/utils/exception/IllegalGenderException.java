@@ -1,4 +1,4 @@
-package extra_exercise.member_list.service.utils;
+package extra_exercise.member_list.service.utils.exception;
 
 public class IllegalGenderException extends Exception {
     public IllegalGenderException(String message) {

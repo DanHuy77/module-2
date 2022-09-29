@@ -4,6 +4,7 @@ import extra_exercise.member_list.service.IMemberService;
 import extra_exercise.member_list.service.impl.StudentService;
 import extra_exercise.member_list.service.impl.TeacherService;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class MemberController {
@@ -11,7 +12,7 @@ public class MemberController {
     private static final IMemberService iTeacherService = new TeacherService();
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static void menuMember() {
+    public static void menuMember() throws IOException {
         while (true) {
             System.out.println("-----------------------------------------------------------");
             System.out.println("Chào mừng bạn đến với chương trình quản lý CodeGym");
