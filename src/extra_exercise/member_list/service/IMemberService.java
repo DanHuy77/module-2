@@ -9,12 +9,12 @@ public interface IMemberService {
 
     void removeMember() throws IOException;
 
-    void displayList();
+    void displayList() throws IOException;
 
-    boolean searchByName(String name);
+    boolean searchByName(String name) throws IOException;
 
-    boolean searchByCode(String code);
+    boolean searchByCode(String code) throws IOException;
 
-    void sortByNameOrID();
+    void sortByNameOrID() throws IOException;
 
 }

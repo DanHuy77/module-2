@@ -1,0 +1,4 @@
+package ss17_IO_binary_file_and_serialization.exercise.managing_application_save_as_binary.service.utils.write_to_binary_file;
+
+public class WriteProductToInput {
+}

@@ -66,7 +66,7 @@ public class TeacherService implements IMemberService {
         while (true) {
 
             try {
-                System.out.print("Nhập giới tính giáo viên: ");
+                System.out.print("Nhập giới tính giáo viên ('Nam' hoặc 'Nữ'): ");
                 gender = input.nextLine();
                 IllegalGenderException.genderCheck(gender);
                 break;
@@ -127,7 +127,9 @@ public class TeacherService implements IMemberService {
 
 
     @Override
-    public void displayList() {
+    public void displayList() throws IOException {
+        writeToFile1.addFileTeacher();
+
         if (teacherList.size() != 0) {
             for (Teacher teacher : teacherList) {
                 System.out.println(teacher);
@@ -139,7 +141,8 @@ public class TeacherService implements IMemberService {
     }
 
     @Override
-    public boolean searchByName(String name) {
+    public boolean searchByName(String name) throws IOException {
+        writeToFile1.addFileTeacher();
         boolean flagSearch = false;
         for (int i = 0; i < teacherList.size(); i++) {
             if (teacherList.get(i).getName().contains(name)) {
@@ -152,7 +155,9 @@ public class TeacherService implements IMemberService {
     }
 
     @Override
-    public boolean searchByCode(String code) {
+    public boolean searchByCode(String code) throws IOException {
+        writeToFile1.addFileTeacher();
+
         boolean flagSearch = false;
         for (int i = 0; i < teacherList.size(); i++) {
             if (teacherList.get(i).getCode().equals(code)) {
@@ -165,7 +170,9 @@ public class TeacherService implements IMemberService {
     }
 
 
-    public void sortByNameOrID() {
+    public void sortByNameOrID() throws IOException {
+        writeToFile1.addFileTeacher();
+
         for (int i = 0; i < teacherList.size(); i++) {
             for (int j = teacherList.size() - 1; j > i; j--) {
                 if (teacherList.get(j).getName().compareTo(teacherList.get(j - 1).getName()) < 0) {

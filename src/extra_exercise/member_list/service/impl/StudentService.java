@@ -60,7 +60,7 @@ public class StudentService implements IMemberService {
 
         String gender;
         while (true) {
-            System.out.print("Nhập giới tính học sinh: ");
+            System.out.print("Nhập giới tính học sinh ('Nam' hoặc 'Nữ') : ");
             gender = input.nextLine();
             try {
                 IllegalGenderException.genderCheck(gender);
@@ -128,11 +128,12 @@ public class StudentService implements IMemberService {
         if (!flagDelete) {
             System.out.println("Không tìm thấy đối tượng cần xóa.");
         }
-    writeToFile.addFileStudent();
+        writeToFile.addFileStudent();
     }
 
     @Override
-    public void displayList() {
+    public void displayList() throws IOException {
+        writeToFile.addFileStudent();
         if (studentList.size() != 0) {
             for (Student student : studentList) {
                 System.out.println(student);
@@ -143,7 +144,8 @@ public class StudentService implements IMemberService {
     }
 
     @Override
-    public boolean searchByName(String name) {
+    public boolean searchByName(String name) throws IOException {
+        writeToFile.addFileStudent();
         boolean flagSearch = false;
         for (int i = 0; i < studentList.size(); i++) {
             if (studentList.get(i).getName().contains(name)) {
@@ -158,7 +160,8 @@ public class StudentService implements IMemberService {
     }
 
     @Override
-    public boolean searchByCode(String code) {
+    public boolean searchByCode(String code) throws IOException {
+        writeToFile.addFileStudent();
         boolean flagSearch = false;
         for (int i = 0; i < studentList.size(); i++) {
             if (studentList.get(i).getCode().equals(code)) {
@@ -171,7 +174,7 @@ public class StudentService implements IMemberService {
     }
 
     @Override
-    public void sortByNameOrID() {
+    public void sortByNameOrID() throws IOException {
 //        Collections.sort(studentList, new Comparator<Student>() {
 //            @Override
 //            public int compare(Student o1, Student o2) {
@@ -186,7 +189,7 @@ public class StudentService implements IMemberService {
 //                }
 //            }
 //        });
-
+        writeToFile.addFileStudent();
         for (int i = 0; i < studentList.size(); i++) {
             for (int j = studentList.size() - 1; j > i; j--) {
                 if (studentList.get(j).getName().compareTo(studentList.get(j - 1).getName()) < 0) {
