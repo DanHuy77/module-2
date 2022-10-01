@@ -159,10 +159,10 @@ public class TeacherService implements IMemberService {
         writeToFile1.addFileTeacher();
 
         boolean flagSearch = false;
-        for (int i = 0; i < teacherList.size(); i++) {
-            if (teacherList.get(i).getCode().equals(code)) {
+        for (Teacher teacher : teacherList) {
+            if (teacher.getCode().equals(code)) {
                 System.out.println("Những giáo viên khớp với tìm kiếm");
-                System.out.println(teacherList.get(i));
+                System.out.println(teacher);
                 flagSearch = true;
             }
         }

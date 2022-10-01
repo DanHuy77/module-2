@@ -1,12 +1,9 @@
 package extra_exercise.member_list.service.impl;
 
+import extra_exercise.member_list.service.utils.exception.*;
 import extra_exercise.member_list.service.utils.files.WriteToFile;
 import extra_exercise.member_list.model.Student;
 import extra_exercise.member_list.service.IMemberService;
-import extra_exercise.member_list.service.utils.exception.IllegalFullNameException;
-import extra_exercise.member_list.service.utils.exception.IllegalGenderException;
-import extra_exercise.member_list.service.utils.exception.IllegalInputException;
-import extra_exercise.member_list.service.utils.exception.ValidPointException;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -25,7 +22,7 @@ public class StudentService implements IMemberService {
         while (true) {
 
             try {
-                System.out.print("Nhập mã học sinh (Chỉ chứa ký tự alphabet và số, độ dài từ 3~6 ký tự): ");
+                System.out.print("Nhập mã học sinh (Bắt đầu bằng 'CODE' và chứa ít nhất 3 chữ số): ");
                 code = input.nextLine();
                 IllegalInputException.validInputCheck(code);
                 break;
@@ -52,9 +49,10 @@ public class StudentService implements IMemberService {
             try {
                 System.out.print("Nhập ngày sinh học sinh (định dạng dd/MM/yyyy): ");
                 birthday = LocalDate.parse(input.nextLine(), formatter);
+                ValidAgeException.ageCheck(birthday);
                 break;
-            } catch (DateTimeParseException e) {
-                System.out.println("Không đúng định dạng, xin nhập lại.");
+            } catch (DateTimeParseException | ValidAgeException e) {
+                System.out.println("Sai định dạng hoặc " + e.getMessage() + " Xin nhập lại");
             }
         }
 
@@ -72,12 +70,12 @@ public class StudentService implements IMemberService {
 
         String className;
         while (true) {
-            System.out.print("Nhập tên lớp của học sinh (Chỉ chứa ký tự alphabet và số, độ dài từ 3~6 ký tự): ");
+            System.out.print("Nhập tên lớp của học sinh (Bắt đầu bằng 'C07'): ");
             className = input.nextLine();
             try {
-                IllegalInputException.validInputCheck(code);
+                IllegalClassNameException.classNameCheck(className);
                 break;
-            } catch (IllegalInputException e) {
+            } catch (IllegalClassNameException e) {
                 System.out.println(e.getMessage());
             }
         }

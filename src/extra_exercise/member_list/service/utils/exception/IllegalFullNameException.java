@@ -6,13 +6,14 @@ public class IllegalFullNameException extends Exception {
         super(message);
     }
 
-    public static boolean nameCheck(String name) throws IllegalFullNameException {
+    public static void nameCheck(String name) throws IllegalFullNameException {
 
-        if (!name.matches("^[a-zA-Z'-'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùúủũụưứ� �ửữựÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼ� ��ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ]{2,30}")){
-            throw new IllegalFullNameException("Dữ liệu không hợp lệ, xin nhập lại.");
-        } else {
-            System.out.println("Nhập tên thành công.");
-            return true;
+        String[] arrName = name.split(" ");
+        for (String s : arrName) {
+            if (!s.matches("[A-ZĐ][a-záàảạãăắằặẵâấầẫậẩéèẻẽẹêếềểễệóòỏõọôốồổỗộơớờởỡợíìỉĩịùúủũụưứửữựỵỷỹýỳ]{1,5}")) {
+                throw new IllegalFullNameException("Tên không khớp chuẩn tiếng Việt, xin nhập lại");
+            }
         }
+        System.out.println("Nhập dữ liệu thành công");
     }
 }

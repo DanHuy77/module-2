@@ -6,7 +6,7 @@ public class IllegalInputException extends Exception {
     }
 
     public static void validInputCheck(String input) throws IllegalInputException {
-        if (!input.matches("[a-z A-Z 0-9]{3,6}")) {
+        if (!input.matches("[C][O][D][E][0-9]{3,}")) {
             throw new IllegalInputException("Không được chứa ký tự đặc biệt, xin nhập lại.");
         } else System.out.println("Nhập dữ liệu thành công.");
     }

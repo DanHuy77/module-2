@@ -6,7 +6,7 @@ public class IllegalGenderException extends Exception {
     }
 
     public static void genderCheck(String gender) throws IllegalGenderException {
-        if (!gender.equals("Nam") && !gender.equals("Nữ")) {
+        if (!gender.matches("(Nam|Nữ)")){
             throw new IllegalGenderException("Dữ liệu nhập không đúng, xin nhập lại.");
         } else {
             System.out.println("Nhập giới tính thành công.");
