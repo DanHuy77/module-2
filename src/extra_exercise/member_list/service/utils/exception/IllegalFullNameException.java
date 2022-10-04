@@ -8,7 +8,7 @@ public class IllegalFullNameException extends Exception {
 
     public static void nameCheck(String name) throws IllegalFullNameException {
 
-        String[] arrName = name.split(" ");
+        String[] arrName = name.trim().split(" ");
         for (String s : arrName) {
             if (!s.matches("[A-ZĐ][a-záàảạãăắằặẵâấầẫậẩéèẻẽẹêếềểễệóòỏõọôốồổỗộơớờởỡợíìỉĩịùúủũụưứửữựỵỷỹýỳ]{1,5}")) {
                 throw new IllegalFullNameException("Tên không khớp chuẩn tiếng Việt, xin nhập lại");

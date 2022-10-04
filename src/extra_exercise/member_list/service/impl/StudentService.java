@@ -28,7 +28,6 @@ public class StudentService implements IMemberService {
                 break;
             } catch (IllegalInputException e) {
                 System.out.println(e.getMessage());
-                ;
             }
         }
         String name;
