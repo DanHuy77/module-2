@@ -6,12 +6,12 @@ public class Employee extends CaseStudyPerson {
     private String employeeCode;
     private String educationLevel;
     private String position;
-    private int salary;
+    private double salary;
 
     public Employee() {
     }
 
-    public Employee(String fullName, LocalDate dateOfBirth, String gender, String IDNumber, String phoneNumber, String email, String employeeCode, String educationLevel, String position, int salary) {
+    public Employee(String fullName, LocalDate dateOfBirth, String gender, String IDNumber, String phoneNumber, String email, String employeeCode, String educationLevel, String position, double salary) {
         super(fullName, dateOfBirth, gender, IDNumber, phoneNumber, email);
         this.employeeCode = employeeCode;
         this.educationLevel = educationLevel;
@@ -19,9 +19,13 @@ public class Employee extends CaseStudyPerson {
         this.salary = salary;
     }
 
-    public Employee(String fullName, LocalDate dateOfBirth, String gender, String IDNumber, String phoneNumber, String email) {
-        super(fullName, dateOfBirth, gender, IDNumber, phoneNumber, email);
+    public Employee(String employeeCode, String educationLevel, String position, double salary) {
+        this.employeeCode = employeeCode;
+        this.educationLevel = educationLevel;
+        this.position = position;
+        this.salary = salary;
     }
+
 
     public String getEmployeeCode() {
         return employeeCode;
@@ -47,11 +51,11 @@ public class Employee extends CaseStudyPerson {
         this.position = position;
     }
 
-    public int getSalary() {
+    public double getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(double salary) {
         this.salary = salary;
     }
 

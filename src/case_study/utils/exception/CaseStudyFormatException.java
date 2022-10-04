@@ -1,5 +1,6 @@
 package case_study.utils.exception;
 
+import case_study.utils.unique_properties.UniqueProperties;
 import extra_exercise.member_list.service.utils.exception.IllegalFullNameException;
 import extra_exercise.member_list.service.utils.exception.IllegalGenderException;
 import extra_exercise.member_list.service.utils.exception.ValidAgeException;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CaseStudyFormatException extends Exception {
-    public static List<String> IDList = new ArrayList<>();
+
 
     public CaseStudyFormatException(String message) {
         super(message);
@@ -19,7 +20,7 @@ public class CaseStudyFormatException extends Exception {
 
         String[] arrName = name.trim().split(" ");
         for (String s : arrName) {
-            if (!s.matches("[A-ZĐ][a-záàảạãăắằặẵâấầẫậẩéèẻẽẹêếềểễệóòỏõọôốồổỗộơớờởỡợíìỉĩịùúủũụưứửữựỵỷỹýỳ]{1,5}")) {
+            if (!s.matches("[A-ZĐÂĂ][a-záàảạãăắằặẵâấầẫậẩéèẻẽẹêếềểễệóòỏõọôốồổỗộơớờởỡợíìỉĩịùúủũụưứửữựỵỷỹýỳ]{1,5}")) {
                 throw new CaseStudyFormatException("It's not a valid name, please try again.");
             }
         }
@@ -60,19 +61,19 @@ public class CaseStudyFormatException extends Exception {
     }
 
     public static void mailCheck(String email) throws CaseStudyFormatException {
-        if (!email.matches("[A-Za-z0-9]{5,30}[@](gmail.com|yahoo.com|@live.com|@outlook.com|@msn.com|@hotmail.com)")) {
+        if (!email.matches("[A-Za-z0-9_]{5,30}[@](gmail.com|yahoo.com|@live.com|@outlook.com|@msn.com|@hotmail.com)")) {
             throw new CaseStudyFormatException("It's not a valid email, please try again.");
         } else System.out.println("Input Succeeded");
     }
 
     public static void customerCodeCheck(String code) throws CaseStudyFormatException {
-        if (!code.matches("[C][0-9]{1,3}")) {
+        if (!code.matches("[C][0-9]{3,}")) {
             throw new CaseStudyFormatException("Wrong Customer format Code, please try again.");
         } else System.out.println("Input Succeeded");
     }
 
     public static void employeeCodeCheck(String code) throws CaseStudyFormatException {
-        if (!code.matches("[E][0-9]{1,3}")) {
+        if (!code.matches("[E][0-9]{3,}")) {
             throw new CaseStudyFormatException("Wrong Employee format Code, please try again");
         } else System.out.println("Input Succeeded");
     }
@@ -91,13 +92,35 @@ public class CaseStudyFormatException extends Exception {
 
     public static void IDUniqueCheck(String IDNumber) throws CaseStudyFormatException {
 
-        if (IDList.size() > 0) {
-            for (String s : IDList) {
+        if (UniqueProperties.IDList.size() > 0) {
+            for (String s : UniqueProperties.IDList) {
                 if (s.equals(IDNumber)) {
                     throw new CaseStudyFormatException("This ID Number is already existed, please try again.");
                 }
             }
         }
         System.out.println("Input ID Number Succeed.");
+    }
+
+    public static void employeeCodeUniqueCheck(String code) throws CaseStudyFormatException {
+        if (UniqueProperties.employeeCodeList.size() > 0) {
+            for (String s : UniqueProperties.employeeCodeList) {
+                if (s.equals(code)) {
+                    throw new CaseStudyFormatException("This employee code is already existed, please try again.");
+                }
+            }
+        }
+        System.out.println("Input Employee Code Succeeded");
+    }
+
+    public static void customerCodeUniqueCheck(String code) throws CaseStudyFormatException {
+        if (UniqueProperties.customerCodeList.size() > 0) {
+            for (String s : UniqueProperties.customerCodeList) {
+                if (s.equals(code)) {
+                    throw new CaseStudyFormatException("This customer code is already existed, please try again.");
+                }
+            }
+        }
+        System.out.println("Input Customer Code Succeeded");
     }
 }
