@@ -2,7 +2,9 @@ package case_study.controller;
 
 import case_study.service.*;
 import case_study.service.impl.*;
+import case_study.utils.exception.CaseStudyFormatException;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class FuramaController {
@@ -14,9 +16,9 @@ public class FuramaController {
     private static IBookingService iBookingService = new BookingService();
 
     public static Scanner input = new Scanner(System.in);
-    private static int IDNumber;
 
-    public static void displayMainMenu() {
+
+    public static void displayMainMenu() throws IOException, CaseStudyFormatException {
         while (true) {
             System.out.println("********** WELCOME TO FURAMA SERVICE MANAGER **********");
             System.out.println("********************** MAIN MENU **********************");
@@ -27,8 +29,17 @@ public class FuramaController {
             System.out.println("4. Booking Management");
             System.out.println("5. Promotion Management");
             System.out.println("6. Exit\n");
-            System.out.print("Please Input Your Choice: ");
-            int choice = Integer.parseInt(input.nextLine());
+
+            int choice;
+            while (true) {
+                try {
+                    System.out.print("Please Input Your Choice: ");
+                    choice = Integer.parseInt(input.nextLine());
+                    break;
+                } catch (NumberFormatException exception) {
+                    System.out.println("Choice must be a number digit, please try again");
+                }
+            }
             switch (choice) {
                 case 1:
                     FuramaController.employeeMenu();
@@ -51,10 +62,11 @@ public class FuramaController {
                     System.out.println("Wrong choice! Please choose again.");
             }
         }
+
     }
 
 
-    private static void employeeMenu() {
+    private static void employeeMenu() throws IOException {
         boolean flag = true;
         while (flag) {
             System.out.println("");
@@ -63,8 +75,17 @@ public class FuramaController {
             System.out.println("3. Edit employees");
             System.out.println("4. Return main menu");
             System.out.println("");
-            System.out.print("Please Choose: ");
-            int choice = Integer.parseInt(input.nextLine());
+
+            int choice;
+            while (true) {
+                try {
+                    System.out.print("Please Choose: ");
+                    choice = Integer.parseInt(input.nextLine());
+                    break;
+                } catch (NumberFormatException e) {
+                    System.out.println("Choice must be a number digit, please try again");
+                }
+            }
             switch (choice) {
                 case 1:
                     iEmployeeService.displayList();
@@ -85,7 +106,7 @@ public class FuramaController {
         }
     }
 
-    private static void customerMenu() {
+    private static void customerMenu() throws IOException, CaseStudyFormatException {
         boolean flag = true;
         while (flag) {
             System.out.println("");
@@ -94,8 +115,17 @@ public class FuramaController {
             System.out.println("3. Edit list customers");
             System.out.println("4. Return main menu");
             System.out.println("");
-            System.out.print("Please Choose: ");
-            int choice = Integer.parseInt(input.nextLine());
+
+            int choice;
+            while (true) {
+                try {
+                    System.out.print("Please Choose: ");
+                    choice = Integer.parseInt(input.nextLine());
+                    break;
+                } catch (NumberFormatException e) {
+                    System.out.println("Choice must be a number digit, please try again");
+                }
+            }
             switch (choice) {
                 case 1:
                     iCustomerService.displayList();
@@ -104,7 +134,6 @@ public class FuramaController {
                     iCustomerService.addNew();
                     break;
                 case 3:
-
                     iCustomerService.editByID();
                     break;
                 case 4:
@@ -114,6 +143,7 @@ public class FuramaController {
                     System.out.println("Wrong choice! Please choose again.");
             }
         }
+
     }
 
     private static void facilityMenu() {
@@ -125,8 +155,17 @@ public class FuramaController {
             System.out.println("3. Edit list facility");
             System.out.println("4. Return main menu");
             System.out.println("");
-            System.out.print("Please Choose");
-            int choice = Integer.parseInt(input.nextLine());
+
+            int choice;
+            while (true) {
+                try {
+                    System.out.print("Please Choose");
+                    choice = Integer.parseInt(input.nextLine());
+                    break;
+                } catch (NumberFormatException e) {
+                    System.out.println("Choice must be a number digit, please try again");
+                }
+            }
             switch (choice) {
                 case 1:
                     iFacilityService.displayList();
@@ -144,6 +183,7 @@ public class FuramaController {
                     System.out.println("Wrong choice! Please choose again.");
             }
         }
+
     }
 
     private static void bookingMenu() {
@@ -157,8 +197,17 @@ public class FuramaController {
             System.out.println("5. Edit contracts");
             System.out.println("6. Return main menu");
             System.out.println("");
-            System.out.print("Please Choose");
-            int choice = Integer.parseInt(input.nextLine());
+
+            int choice;
+            while (true) {
+                try {
+                    System.out.print("Please Choose");
+                    choice = Integer.parseInt(input.nextLine());
+                    break;
+                } catch (NumberFormatException e) {
+                    System.out.println("Choice must be a number digit, please try again");
+                }
+            }
             switch (choice) {
                 case 1:
                     iBookingService.addNewBooking();
@@ -182,6 +231,7 @@ public class FuramaController {
                     System.out.println("Wrong choice! Please choose again.");
             }
         }
+
     }
 
     private static void promotionMenu() {

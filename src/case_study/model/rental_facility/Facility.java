@@ -6,17 +6,27 @@ public abstract class Facility {
     private int rentalCost;
     private int maximumUser;
     private String rentalType;
+    private String serviceCode;
 
     public Facility() {
     }
 
-    public Facility(String serviceName, double serviceUsedArea, int rentalCost, int maximumUser, String rentalType) {
+    public Facility(String serviceName, double serviceUsedArea, int rentalCost, int maximumUser, String rentalType, String serviceCode) {
         this.serviceName = serviceName;
         this.serviceUsedArea = serviceUsedArea;
         this.rentalCost = rentalCost;
         this.maximumUser = maximumUser;
         this.rentalType = rentalType;
+        this.serviceCode = serviceCode;
     }
+
+//    public Facility(String serviceName, double serviceUsedArea, int rentalCost, int maximumUser, String rentalType) {
+//        this.serviceName = serviceName;
+//        this.serviceUsedArea = serviceUsedArea;
+//        this.rentalCost = rentalCost;
+//        this.maximumUser = maximumUser;
+//        this.rentalType = rentalType;
+//    }
 
     public String getServiceName() {
         return serviceName;

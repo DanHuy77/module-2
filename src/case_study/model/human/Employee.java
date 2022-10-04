@@ -11,7 +11,7 @@ public class Employee extends CaseStudyPerson {
     public Employee() {
     }
 
-    public Employee(String fullName, LocalDate dateOfBirth, String gender, int IDNumber, String phoneNumber, String email, String employeeCode, String educationLevel, String position, int salary) {
+    public Employee(String fullName, LocalDate dateOfBirth, String gender, String IDNumber, String phoneNumber, String email, String employeeCode, String educationLevel, String position, int salary) {
         super(fullName, dateOfBirth, gender, IDNumber, phoneNumber, email);
         this.employeeCode = employeeCode;
         this.educationLevel = educationLevel;
@@ -19,7 +19,7 @@ public class Employee extends CaseStudyPerson {
         this.salary = salary;
     }
 
-    public Employee(String fullName, LocalDate dateOfBirth, String gender, int IDNumber, String phoneNumber, String email) {
+    public Employee(String fullName, LocalDate dateOfBirth, String gender, String IDNumber, String phoneNumber, String email) {
         super(fullName, dateOfBirth, gender, IDNumber, phoneNumber, email);
     }
 

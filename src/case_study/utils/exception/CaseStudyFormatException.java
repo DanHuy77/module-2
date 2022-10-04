@@ -5,8 +5,12 @@ import extra_exercise.member_list.service.utils.exception.IllegalGenderException
 import extra_exercise.member_list.service.utils.exception.ValidAgeException;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CaseStudyFormatException extends Exception {
+    public static List<String> IDList = new ArrayList<>();
+
     public CaseStudyFormatException(String message) {
         super(message);
     }
@@ -31,18 +35,21 @@ public class CaseStudyFormatException extends Exception {
     }
 
     public static void employeeAgeCheck(LocalDate birthday) throws CaseStudyFormatException {
-        int year = birthday.getYear();
-        int presentYear = LocalDate.now().getYear();
-        if (presentYear - year < 18) {
-            throw new CaseStudyFormatException("Employee must not be under 18 years old, please try again.");
+        LocalDate presentDate = LocalDate.now().plusYears(-18);
+        LocalDate maxDate = LocalDate.now().plusYears(-100);
+        if (!birthday.isBefore(presentDate) || !birthday.isAfter(maxDate)) {
+            throw new CaseStudyFormatException("Employee must not be under 18 or over 100 years old, please try again.");
         } else System.out.println("Input Date of Birth Succeeded");
     }
 
+
     public static void customerAgeCheck(LocalDate birthday) throws CaseStudyFormatException {
-        int year = birthday.getYear();
-        int presentYear = LocalDate.now().getYear();
-        if (presentYear - year < 18) {
+        LocalDate presentDate = LocalDate.now().plusYears(-18);
+        LocalDate maxDate = LocalDate.now().plusYears(-100);
+        if (!birthday.isBefore(presentDate)) {
             throw new CaseStudyFormatException("Customer must not be under 18 years old, please try again.");
+        } else if (!birthday.isAfter(maxDate)) {
+            throw new CaseStudyFormatException("Customer must not be over 100 years old, please try again.");
         } else System.out.println("Input Date of Birth Succeeded");
     }
 
@@ -77,9 +84,20 @@ public class CaseStudyFormatException extends Exception {
     }
 
     public static void IDNumberCheck(String IDNumber) throws CaseStudyFormatException {
-        if (!IDNumber.matches("[0-9]{9}")) {
+        if (!IDNumber.matches("")) {
             throw new CaseStudyFormatException("ID Number must contains 9 number digits, please try again.");
         } else System.out.println("Input Succeeded");
     }
-}
 
+    public static void IDUniqueCheck(String IDNumber) throws CaseStudyFormatException {
+
+        if (IDList.size() > 0) {
+            for (String s : IDList) {
+                if (s.equals(IDNumber)) {
+                    throw new CaseStudyFormatException("This ID Number is already existed, please try again.");
+                }
+            }
+        }
+        System.out.println("Input ID Number Succeed.");
+    }
+}

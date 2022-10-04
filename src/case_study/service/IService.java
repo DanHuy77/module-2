@@ -1,9 +1,13 @@
 package case_study.service;
 
-public interface IService {
-    void displayList();
+import case_study.utils.exception.CaseStudyFormatException;
 
-    void addNew();
+import java.io.IOException;
+
+public interface IService {
+    void displayList() throws IOException;
+
+    void addNew() throws IOException, CaseStudyFormatException;
 
 
 }

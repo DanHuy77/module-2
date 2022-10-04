@@ -16,10 +16,10 @@ public class EmployeeService implements IEmployeeService {
     public Scanner input = new Scanner(System.in);
     public static List<Employee> employeeList = new ArrayList<>();
 
-    static {
-        Employee employee = new Employee("Đặng Nhật Huy", LocalDate.parse("07/07/1996", DateTimeFormatter.ofPattern("dd/MM/yyyy")), "Nam", 1, "0799440683", "b77cwalk@gmail.com", "a", "ĐH", "NV", Integer.parseInt("10000"));
-        employeeList.add(employee);
-    }
+//    static {
+//        Employee employee = new Employee("Đặng Nhật Huy", LocalDate.parse("07/07/1996", DateTimeFormatter.ofPattern("dd/MM/yyyy")), "Nam", 1, "0799440683", "b77cwalk@gmail.com", "a", "ĐH", "NV", Integer.parseInt("10000"));
+//        employeeList.add(employee);
+//    }
 
 
     public Employee getEmployeeInfo() {
@@ -41,7 +41,7 @@ public class EmployeeService implements IEmployeeService {
                 CaseStudyFormatException.employeeAgeCheck(dateOfBirth = LocalDate.parse(input.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
                 break;
             } catch (CaseStudyFormatException | DateTimeException exception) {
-                exception.getMessage();
+                System.out.println(exception.getMessage());
             }
         }
 
@@ -52,12 +52,12 @@ public class EmployeeService implements IEmployeeService {
                 CaseStudyFormatException.genderCheck(gender = input.nextLine());
                 break;
             } catch (CaseStudyFormatException e) {
-                e.getMessage();
+                System.out.println(e.getMessage());
             }
         }
 
         System.out.print("Input Employee ID Number: ");
-        int IDNumber = Integer.parseInt(input.nextLine());
+        String IDNumber = input.nextLine();
 
         String phoneNumber;
         while (true) {
@@ -98,7 +98,17 @@ public class EmployeeService implements IEmployeeService {
         System.out.println("2. College");
         System.out.println("3. University");
         System.out.println("4. After-University");
-        int eduChoice = Integer.parseInt(input.nextLine());
+        System.out.println("");
+        int eduChoice;
+        while (true) {
+            try {
+                System.out.print("Input your choice: ");
+                eduChoice = Integer.parseInt(input.nextLine());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Choice must be a number digit, please try again");
+            }
+        }
         switch (eduChoice) {
             case 1:
                 educationLevel = "Intermediate";
@@ -117,16 +127,26 @@ public class EmployeeService implements IEmployeeService {
         }
 
         String position = "";
-        System.out.print("Input Employee's Position");
+        System.out.println("Input Employee's Position");
         System.out.println("1. Receptionist");
         System.out.println("2. Servants");
         System.out.println("3. Experts");
         System.out.println("4. Supervisor");
         System.out.println("5. Manager");
         System.out.println("6. Director");
+        System.out.println("");
 
-        System.out.println("Input Employee's Salary");
-        int positionChoice = Integer.parseInt(input.nextLine());
+        int positionChoice;
+        while (true) {
+            try {
+                System.out.print("Input your choice: ");
+                positionChoice = Integer.parseInt(input.nextLine());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Choice must be a number digit, please try again");
+            }
+        }
+
         switch (positionChoice) {
             case 1:
                 position = "Receptionist";
@@ -149,6 +169,8 @@ public class EmployeeService implements IEmployeeService {
             default:
                 System.out.println("There is no such as position!");
         }
+
+        System.out.println("Input Employee's Salary");
         int salary = Integer.parseInt(input.nextLine());
         return new
 
@@ -158,8 +180,10 @@ public class EmployeeService implements IEmployeeService {
 
 
     @Override
-    public void displayList() {
+    public void displayList() throws IOException {
+        readFileEmployee();
         if (employeeList.size() != 0) {
+
             for (Employee employee : employeeList) {
                 System.out.println(employee);
             }
@@ -169,88 +193,103 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public void addNew() {
+    public void addNew() throws IOException {
         Employee employee = this.getEmployeeInfo();
         employeeList.add(employee);
+        writeFileEmployee(employeeList);
         System.out.println("Added new Employee.");
     }
 
 
     @Override
-    public void editByID() {
-        System.out.print("Please Input Employee's ID Number: ");
-        int IDNumber = Integer.parseInt(input.nextLine());
-        boolean isExist = false;
-        for (Employee employee : employeeList) {
-            if (employee.getIDNumber() == IDNumber) {
-                System.out.println("Employee who matched inquisition");
-                System.out.println(employee);
-                System.out.println("");
-                System.out.println("Edit Menu");
-                System.out.println("");
-                System.out.println("1. Employee's Full Name.");
-                System.out.println("2. Employee's Date of Birth.");
-                System.out.println("3. Employee's Gender.");
-                System.out.println("4. Employee's ID Number.");
-                System.out.println("5. Employee's Phone Number.");
-                System.out.println("6. Employee Email.");
-                System.out.println("7. Employee's Code");
-                System.out.println("8. Employee's Education Level.");
-                System.out.println("9. Employee's Position.");
-                System.out.println("10. Employee's Salary.");
-                System.out.println("");
-                System.out.println("Which information you want to edit?");
-                System.out.print("Input choice: ");
-                int editChoice = Integer.parseInt(input.nextLine());
-                switch (editChoice) {
-                    case 1:
-                        System.out.print("Set new Full Name: ");
-                        employee.setFullName(input.nextLine());
-                        break;
-                    case 2:
-                        System.out.print("Set new Date of Birth: ");
-                        employee.setDateOfBirth(LocalDate.parse(input.nextLine(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-                        break;
-                    case 3:
-                        System.out.print("Set new Gender: ");
-                        employee.setGender(input.nextLine());
-                        break;
-                    case 4:
-                        System.out.print("Set new ID Number: ");
-                        employee.setIDNumber(Integer.parseInt(input.nextLine()));
-                        break;
-                    case 5:
-                        System.out.print("Set new Phone Number: ");
-                        employee.setPhoneNumber(input.nextLine());
-                        break;
-                    case 6:
-                        System.out.print("Set new Email: ");
-                        employee.setEmail(input.nextLine());
-                        break;
-                    case 7:
-                        System.out.print("Set new Code: ");
-                        employee.setEmployeeCode(input.nextLine());
-                        break;
-                    case 8:
-                        System.out.print("Set new Education Level: ");
-                        employee.setEducationLevel(input.nextLine());
-                        break;
-                    case 9:
-                        System.out.print("Set new Position: ");
-                        employee.setPosition(input.nextLine());
-                        break;
-                    case 10:
-                        System.out.print("Set new Salary: ");
-                        employee.setSalary(Integer.parseInt(input.nextLine()));
-                        break;
-                    default:
-                        System.out.println("Wrong choice! Please choose again.");
-                }
-                System.out.println("Edited!");
-                isExist = true;
-                break;
-            }
+    public void editByID() throws IOException {
 
+        System.out.print("Please Input Employee's ID Number: ");
+        String IDNumber = input.nextLine();
+        boolean isExist = false;
+        readFileEmployee();
+        if (employeeList.size() != 0) {
+
+            for (Employee employee : employeeList) {
+                if (employee.getIDNumber().equals(IDNumber)) {
+                    System.out.println("Employee who matched inquisition");
+                    System.out.println(employee);
+                    System.out.println("");
+                    System.out.println("Edit Menu");
+                    System.out.println("");
+                    System.out.println("1. Employee's Full Name.");
+                    System.out.println("2. Employee's Date of Birth.");
+                    System.out.println("3. Employee's Gender.");
+                    System.out.println("4. Employee's ID Number.");
+                    System.out.println("5. Employee's Phone Number.");
+                    System.out.println("6. Employee Email.");
+                    System.out.println("7. Employee's Code");
+                    System.out.println("8. Employee's Education Level.");
+                    System.out.println("9. Employee's Position.");
+                    System.out.println("10. Employee's Salary.");
+                    System.out.println("");
+                    System.out.println("Which information you want to edit?");
+
+                    int editChoice;
+                    while (true) {
+                        try {
+                            System.out.print("Input choice: ");
+                            editChoice = Integer.parseInt(input.nextLine());
+                            break;
+                        } catch (NumberFormatException e) {
+                            System.out.println("Choice must be a number digit, please try again");
+                        }
+                    }
+                    switch (editChoice) {
+                        case 1:
+                            System.out.print("Set new Full Name: ");
+                            employee.setFullName(input.nextLine());
+                            break;
+                        case 2:
+                            System.out.print("Set new Date of Birth: ");
+                            employee.setDateOfBirth(LocalDate.parse(input.nextLine(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                            break;
+                        case 3:
+                            System.out.print("Set new Gender: ");
+                            employee.setGender(input.nextLine());
+                            break;
+                        case 4:
+                            System.out.print("Set new ID Number: ");
+                            employee.setIDNumber(input.nextLine());
+                            break;
+                        case 5:
+                            System.out.print("Set new Phone Number: ");
+                            employee.setPhoneNumber(input.nextLine());
+                            break;
+                        case 6:
+                            System.out.print("Set new Email: ");
+                            employee.setEmail(input.nextLine());
+                            break;
+                        case 7:
+                            System.out.print("Set new Code: ");
+                            employee.setEmployeeCode(input.nextLine());
+                            break;
+                        case 8:
+                            System.out.print("Set new Education Level: ");
+                            employee.setEducationLevel(input.nextLine());
+                            break;
+                        case 9:
+                            System.out.print("Set new Position: ");
+                            employee.setPosition(input.nextLine());
+                            break;
+                        case 10:
+                            System.out.print("Set new Salary: ");
+                            employee.setSalary(Integer.parseInt(input.nextLine()));
+                            break;
+                        default:
+                            System.out.println("Wrong choice! Please choose again.");
+                    }
+                    System.out.println("Edited!");
+                    writeFileEmployee(employeeList);
+                    isExist = true;
+                    break;
+                }
+            }
         }
         if (!isExist) {
             System.out.println("Wrong ID Number");
@@ -259,7 +298,7 @@ public class EmployeeService implements IEmployeeService {
     }
 
     private String employeeFileForm(Employee employee) {
-        return String.format("%s,%s,%s,%d,%s,%s,%s,%s,%s,%d", employee.getFullName(), employee.getDateOfBirth(), employee.getGender(), employee.getIDNumber(), employee.getPhoneNumber(), employee.getEmail(), employee.getEmployeeCode(), employee.getEducationLevel(), employee.getPosition(), employee.getSalary());
+        return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%d", employee.getFullName(), employee.getDateOfBirth().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")), employee.getGender(), employee.getIDNumber(), employee.getPhoneNumber(), employee.getEmail(), employee.getEmployeeCode(), employee.getEducationLevel(), employee.getPosition(), employee.getSalary());
     }
 
     private void writeFileEmployee(List<Employee> employeeList) throws IOException {
@@ -268,6 +307,7 @@ public class EmployeeService implements IEmployeeService {
         for (Employee employee : employeeList) {
             bufferedWriter.write(employeeFileForm(employee));
         }
+        bufferedWriter.close();
     }
 
 
@@ -279,9 +319,10 @@ public class EmployeeService implements IEmployeeService {
         Employee employee;
         while ((line = bufferedReader.readLine()) != null) {
             properties = line.split(",");
-            employee = new Employee(properties[0], LocalDate.parse(properties[1], DateTimeFormatter.ofPattern("dd/MM/yyyy")), properties[2], Integer.parseInt(properties[3]), properties[4], properties[5], properties[6], properties[7], properties[8], Integer.parseInt(properties[9]));
+            employee = new Employee(properties[0], LocalDate.parse(properties[1], DateTimeFormatter.ofPattern("dd/MM/yyyy")), properties[2], properties[3], properties[4], properties[5], properties[6], properties[7], properties[8], Integer.parseInt(properties[9]));
             employeeList.add(employee);
         }
+        bufferedReader.close();
         return employeeList;
     }
 }

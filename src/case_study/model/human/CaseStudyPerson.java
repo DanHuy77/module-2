@@ -6,11 +6,11 @@ public abstract class CaseStudyPerson {
     private String fullName;
     private LocalDate dateOfBirth;
     private String gender;
-    private int IDNumber;
+    private String IDNumber;
     private String phoneNumber;
     private String email;
 
-    public CaseStudyPerson(String fullName, LocalDate dateOfBirth, String gender, int IDNumber, String phoneNumber, String email) {
+    public CaseStudyPerson(String fullName, LocalDate dateOfBirth, String gender, String IDNumber, String phoneNumber, String email) {
         this.fullName = fullName;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
@@ -47,11 +47,11 @@ public abstract class CaseStudyPerson {
         this.gender = gender;
     }
 
-    public int getIDNumber() {
+    public String getIDNumber() {
         return IDNumber;
     }
 
-    public void setIDNumber(int IDNumber) {
+    public void setIDNumber(String IDNumber) {
         this.IDNumber = IDNumber;
     }
 

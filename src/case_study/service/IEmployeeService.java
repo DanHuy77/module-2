@@ -1,14 +1,16 @@
 package case_study.service;
 
+import java.io.IOException;
+
 public interface IEmployeeService extends IService {
     @Override
-    void displayList();
+    void displayList() throws IOException;
 
     @Override
-    void addNew();
+    void addNew() throws IOException;
 
 
-    void editByID();
+    void editByID() throws IOException;
 
 
 }
