@@ -146,20 +146,20 @@ public class FuramaController {
 
     }
 
-    private static void facilityMenu() {
+    private static void facilityMenu() throws IOException, CaseStudyFormatException {
         boolean flag = true;
         while (flag) {
             System.out.println("");
             System.out.println("1. Display list facility");
             System.out.println("2. Add new facility");
-            System.out.println("3. Edit list facility");
+            System.out.println("3. Display list facility maintenance");
             System.out.println("4. Return main menu");
             System.out.println("");
 
             int choice;
             while (true) {
                 try {
-                    System.out.print("Please Choose");
+                    System.out.print("Please Choose: ");
                     choice = Integer.parseInt(input.nextLine());
                     break;
                 } catch (NumberFormatException e) {
@@ -171,7 +171,7 @@ public class FuramaController {
                     iFacilityService.displayList();
                     break;
                 case 2:
-                    iFacilityService.addNew();
+                    FuramaController.addFacilityMenu();
                     break;
                 case 3:
                     iFacilityService.edit();
@@ -239,9 +239,21 @@ public class FuramaController {
         System.out.println("1. Display list customers use service");
         System.out.println("2. Display list customers get voucher");
         System.out.println("3. Return main menu");
+
         System.out.println("");
         System.out.print("Please Choose: ");
         int choice = Integer.parseInt(input.nextLine());
     }
 
+
+    private static void addFacilityMenu() throws IOException, CaseStudyFormatException {
+        System.out.println("-Add Facility Menu-");
+        System.out.println("1. Add new Villa");
+        System.out.println("2. Add new House");
+        System.out.println("3. Add new Room");
+        System.out.println("4. Return Main Menu");
+        System.out.println("");
+        System.out.print("Please choose: ");
+        iFacilityService.addNew();
+    }
 }

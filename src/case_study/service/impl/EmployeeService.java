@@ -224,6 +224,9 @@ public class EmployeeService implements IEmployeeService {
 
             for (int i = 0; i < employeeList.size(); i++) {
                 if (employeeList.get(i).getIDNumber().equals(IDNumber)) {
+                    System.out.println("Employee who matched inquisition");
+                    System.out.println(employeeList.get(i).toString());
+                    System.out.println("-Set new Information-");
                     employeeList.set(i, getEmployeeInfo());
                     writeFileEmployee(employeeList);
                     isExist = true;

@@ -1,13 +1,12 @@
 package case_study.utils.exception;
 
 import case_study.utils.unique_properties.UniqueProperties;
-import extra_exercise.member_list.service.utils.exception.IllegalFullNameException;
-import extra_exercise.member_list.service.utils.exception.IllegalGenderException;
-import extra_exercise.member_list.service.utils.exception.ValidAgeException;
+import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
+import org.w3c.dom.ls.LSOutput;
 
+
+import javax.crypto.spec.PSource;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CaseStudyFormatException extends Exception {
 
@@ -20,7 +19,7 @@ public class CaseStudyFormatException extends Exception {
 
         String[] arrName = name.trim().split(" ");
         for (String s : arrName) {
-            if (!s.matches("[A-ZĐÂĂ][a-záàảạãăắằặẵâấầẫậẩéèẻẽẹêếềểễệóòỏõọôốồổỗộơớờởỡợíìỉĩịùúủũụưứửữựỵỷỹýỳ]{1,5}")) {
+            if (!s.matches("[A-ZĐÂĂ][a-záàảạãăắằặẵâấầẫậẩéèẻẽẹêếềểễệóòỏõọôốồổỗộơớờởỡợíìỉĩịùúủũụưứửữựỵỷỹýỳ]{2,}")) {
                 throw new CaseStudyFormatException("It's not a valid name, please try again.");
             }
         }
@@ -122,5 +121,46 @@ public class CaseStudyFormatException extends Exception {
             }
         }
         System.out.println("Input Customer Code Succeeded");
+    }
+
+    public static void areaCheck(double area) throws CaseStudyFormatException {
+        if (area <= 30) {
+            throw new CaseStudyFormatException("Area must be larger than 30m2, please try again.");
+        }
+        System.out.println("Input Area Succeeded.");
+    }
+
+    public static void userNumberCheck(int number) throws CaseStudyFormatException {
+        if (number < 0 || number > 20) {
+            throw new CaseStudyFormatException("User Number must be between 0 and 20, please try again.");
+        }
+        System.out.println("Input User Number Succeeded.");
+    }
+
+    public static void floorNumberCheck(int floorNumber) throws CaseStudyFormatException {
+        if (floorNumber < -1) {
+            throw new CaseStudyFormatException("Floor Number must be a Integer and not a minus digit, please try again.");
+        } else System.out.println("Input FLoor Number Succeeded.");
+    }
+
+    public static void villaCodeCheck(String code) throws CaseStudyFormatException {
+        if (!code.matches("[S][V][V][L][-][0-9]{4}")) {
+            throw new CaseStudyFormatException("Invalid Villa Code, please try again.");
+        }
+        System.out.println("Input Villa Code Succeeded.");
+    }
+
+    public static void houseCodeCheck(String code) throws CaseStudyFormatException {
+        if (!code.matches("[S][V][H][O][-][0-9]{4}")) {
+            throw new CaseStudyFormatException("Invalid House Code, please try again.");
+        }
+        System.out.println("Input House Code Succeeded.");
+    }
+
+    public static void roomCodeCheck(String code) throws CaseStudyFormatException {
+        if (!code.matches("[S][V][R][O][-][0-9]{4}")) {
+            throw new CaseStudyFormatException("Invalid House Code, please try again.");
+        }
+        System.out.println("Input Room Code Succeeded.");
     }
 }
