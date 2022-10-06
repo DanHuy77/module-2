@@ -94,7 +94,6 @@ public class FuramaController {
                     iEmployeeService.addNew();
                     break;
                 case 3:
-
                     iEmployeeService.editByID();
                     break;
                 case 4:
@@ -174,7 +173,7 @@ public class FuramaController {
                     FuramaController.addFacilityMenu();
                     break;
                 case 3:
-                    iFacilityService.edit();
+                    FacilityService.displayFacilityMaintenance();
                     break;
                 case 4:
                     flag = false;
@@ -186,7 +185,7 @@ public class FuramaController {
 
     }
 
-    private static void bookingMenu() {
+    private static void bookingMenu() throws IOException {
         boolean flag = true;
         while (flag) {
             System.out.println("");
@@ -201,7 +200,7 @@ public class FuramaController {
             int choice;
             while (true) {
                 try {
-                    System.out.print("Please Choose");
+                    System.out.print("Please Choose: ");
                     choice = Integer.parseInt(input.nextLine());
                     break;
                 } catch (NumberFormatException e) {

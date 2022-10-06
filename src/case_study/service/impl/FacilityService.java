@@ -8,6 +8,7 @@ import case_study.model.rental_facility.Room;
 import case_study.model.rental_facility.Villa;
 import case_study.service.IFacilityService;
 import case_study.utils.exception.CaseStudyFormatException;
+import case_study.utils.unique_properties.UniqueProperties;
 
 import java.io.*;
 import java.util.*;
@@ -16,7 +17,7 @@ import java.util.*;
 public class FacilityService implements IFacilityService {
     public Scanner input = new Scanner(System.in);
     public static LinkedHashMap<Facility, Integer> facilityMap = new LinkedHashMap<>();
-
+    public static ArrayList<Facility> maintainFacility = new ArrayList<>();
 
     public Villa getVillaInfo() {
         String serviceName;
@@ -70,6 +71,8 @@ public class FacilityService implements IFacilityService {
             try {
                 System.out.print("Input Service Code: ");
                 CaseStudyFormatException.villaCodeCheck(serviceCode = input.nextLine());
+                CaseStudyFormatException.serviceCodeUniqueCheck(serviceCode);
+                UniqueProperties.facilityServiceCodeList.add(serviceCode);
                 break;
             } catch (CaseStudyFormatException e) {
                 System.out.println(e.getMessage());
@@ -79,7 +82,7 @@ public class FacilityService implements IFacilityService {
         String roomStandard;
         while (true) {
             try {
-                System.out.print("Input Room Standard");
+                System.out.print("Input Room Standard: ");
                 CaseStudyFormatException.nameCheck(roomStandard = input.nextLine());
                 break;
             } catch (CaseStudyFormatException e) {
@@ -162,6 +165,8 @@ public class FacilityService implements IFacilityService {
             try {
                 System.out.print("Input Service Code: ");
                 CaseStudyFormatException.houseCodeCheck(serviceCode = input.nextLine());
+                CaseStudyFormatException.serviceCodeUniqueCheck(serviceCode);
+                UniqueProperties.facilityServiceCodeList.add(serviceCode);
                 break;
             } catch (CaseStudyFormatException e) {
                 System.out.println(e.getMessage());
@@ -171,7 +176,7 @@ public class FacilityService implements IFacilityService {
         String roomStandard;
         while (true) {
             try {
-                System.out.print("Input Room Standard");
+                System.out.print("Input Room Standard: ");
                 CaseStudyFormatException.nameCheck(roomStandard = input.nextLine());
                 break;
             } catch (CaseStudyFormatException e) {
@@ -245,6 +250,8 @@ public class FacilityService implements IFacilityService {
             try {
                 System.out.print("Input Service Code: ");
                 CaseStudyFormatException.roomCodeCheck(serviceCode = input.nextLine());
+                CaseStudyFormatException.serviceCodeUniqueCheck(serviceCode);
+                UniqueProperties.facilityServiceCodeList.add(serviceCode);
                 break;
             } catch (CaseStudyFormatException e) {
                 System.out.println(e.getMessage());
@@ -269,21 +276,21 @@ public class FacilityService implements IFacilityService {
 
     @Override
     public void displayList() throws IOException {
-        boolean flag = false;
-        facilityMap = readFileHouse();
-        facilityMap.putAll(readFileVilla());
-        facilityMap.putAll(readFileRoom());
-        Set<Facility> keys = facilityMap.keySet();
+        try {
+            facilityMap = readFileHouse();
+            facilityMap.putAll(readFileVilla());
+            facilityMap.putAll(readFileRoom());
+            Set<Facility> keys = facilityMap.keySet();
+            if (!keys.isEmpty()) {
+                for (Facility key : keys) {
+                    System.out.println(key.toString());
 
-        if (!keys.isEmpty()) {
-            flag = true;
-            for (Facility key : keys) {
-                System.out.println(key.toString());
-
+                }
+            } else {
+                System.out.println("There is no Facility in list!");
             }
-        }
-        if (!flag) {
-            System.out.println("There is no Facility in list!");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Facility Data is Empty!");
         }
     }
 
@@ -336,19 +343,34 @@ public class FacilityService implements IFacilityService {
         }
     }
 
+    public static void addFacilityMaintenance() {
+        Set<Facility> keys = facilityMap.keySet();
+        for (Facility key : keys) {
+            if (facilityMap.get(key) >= 5) {
+                maintainFacility.add(key);
+            }
+        }
+    }
+
+    public static void displayFacilityMaintenance() {
+        if (maintainFacility.size() != 0) {
+            for (int i = 0; i < maintainFacility.size(); i++) {
+                System.out.println(maintainFacility.get(i).toString());
+            }
+        } else {
+            System.out.println("Empty List.");
+        }
+    }
 
     private String villaFileForm(Villa villa) {
-        Set<Facility> keys = facilityMap.keySet();
         return villa.getServiceName() + "," + villa.getServiceUsedArea() + "," + villa.getRentalCost() + "," + villa.getMaximumUser() + "," + villa.getRentalType() + "," + villa.getServiceCode() + "," + villa.getRoomStandard() + "," + villa.getPoolArea() + "," + villa.getFloorNumber();
     }
 
     private String houseFileForm(House house) {
-        Set<Facility> keys = facilityMap.keySet();
         return house.getServiceName() + "," + house.getServiceUsedArea() + "," + house.getRentalCost() + "," + house.getMaximumUser() + "," + house.getRentalType() + "," + house.getServiceCode() + "," + house.getRoomStandard() + "," + house.getFloorNumber();
     }
 
     private String roomFileForm(Room room) {
-        Set<Facility> keys = facilityMap.keySet();
         return room.getServiceName() + "," + room.getServiceUsedArea() + "," + room.getRentalCost() + "," + room.getMaximumUser() + "," + room.getRentalType() + "," + room.getServiceCode() + "," + room.getFreeService();
     }
 
@@ -367,7 +389,6 @@ public class FacilityService implements IFacilityService {
     }
 
     private void writeFileHouse(LinkedHashMap<Facility, Integer> facilityMap) throws IOException {
-
         File file = new File("src\\case_study\\data\\house.csv");
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
         Set<Facility> keys = facilityMap.keySet();
@@ -403,6 +424,7 @@ public class FacilityService implements IFacilityService {
         Villa villa;
         while ((line = bufferedReader.readLine()) != null) {
             properties = line.split(",");
+            UniqueProperties.facilityServiceCodeList.add(properties[5]);
             villa = new Villa(properties[0], Double.parseDouble(properties[1]), Double.parseDouble(properties[2]), Integer.parseInt(properties[3]), properties[4], properties[5], properties[6], Double.parseDouble(properties[7]), Integer.parseInt(properties[8]));
             facilityMap.put(villa, 0);
         }
@@ -419,6 +441,7 @@ public class FacilityService implements IFacilityService {
         House house;
         while ((line = bufferedReader.readLine()) != null) {
             properties = line.split(",");
+            UniqueProperties.facilityServiceCodeList.add(properties[5]);
             house = new House(properties[0], Double.parseDouble(properties[1]), Double.parseDouble(properties[2]), Integer.parseInt(properties[3]), properties[4], properties[5], properties[6], Integer.parseInt(properties[7]));
             facilityMap.put(house, 0);
         }
@@ -435,6 +458,7 @@ public class FacilityService implements IFacilityService {
         Room room;
         while ((line = bufferedReader.readLine()) != null) {
             properties = line.split(",");
+            UniqueProperties.facilityServiceCodeList.add(properties[5]);
             room = new Room(properties[0], Double.parseDouble(properties[1]), Double.parseDouble(properties[2]), Integer.parseInt(properties[3]), properties[4], properties[5], properties[6]);
             facilityMap.put(room, 0);
         }

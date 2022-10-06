@@ -2,23 +2,23 @@ package case_study.model.rental_service;
 
 import java.time.LocalDate;
 
-public class BookingService {
+public class Booking {
     private String bookingCode;
     private LocalDate startDate;
     private LocalDate endDate;
     private String bookingCustomerCode;
-    private String serviceName;
+    private String serviceCode;
     private String serviceType;
 
-    public BookingService() {
+    public Booking() {
     }
 
-    public BookingService(String bookingCode, LocalDate startDate, LocalDate endDate, String bookingCustomerCode, String serviceName, String serviceType) {
+    public Booking(String bookingCode, LocalDate startDate, LocalDate endDate, String bookingCustomerCode, String serviceCode, String serviceType) {
         this.bookingCode = bookingCode;
         this.startDate = startDate;
         this.endDate = endDate;
         this.bookingCustomerCode = bookingCustomerCode;
-        this.serviceName = serviceName;
+        this.serviceCode = serviceCode;
         this.serviceType = serviceType;
     }
 
@@ -54,12 +54,12 @@ public class BookingService {
         this.bookingCustomerCode = bookingCustomerCode;
     }
 
-    public String getServiceName() {
-        return serviceName;
+    public String getServiceCode() {
+        return serviceCode;
     }
 
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
+    public void setServiceCode(String serviceCode) {
+        this.serviceCode = serviceCode;
     }
 
     public String getServiceType() {
@@ -77,7 +77,7 @@ public class BookingService {
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", bookingCustomerCode='" + bookingCustomerCode + '\'' +
-                ", serviceName='" + serviceName + '\'' +
+                ", serviceName='" + serviceCode + '\'' +
                 ", serviceType='" + serviceType + '\'' +
                 '}';
     }

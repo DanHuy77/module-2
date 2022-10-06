@@ -62,6 +62,7 @@ public class EmployeeService implements IEmployeeService {
             try {
                 System.out.print("Input Employee ID Number: ");
                 CaseStudyFormatException.IDUniqueCheck(IDNumber = input.nextLine());
+                UniqueProperties.IDList.add(IDNumber);
                 break;
             } catch (CaseStudyFormatException e) {
                 System.out.println(e.getMessage());
@@ -192,15 +193,18 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public void displayList() throws IOException {
-        employeeList = readFileEmployee();
-        if (employeeList.size() != 0) {
-            for (int i = 0; i < employeeList.size(); i++) {
-                System.out.println(employeeList.get(i).toString());
+        try {
+            employeeList = readFileEmployee();
+            if (employeeList.size() != 0) {
+                for (Employee employee : employeeList) {
+                    System.out.println(employee.toString());
+                }
+            } else {
+                System.out.println("There is no Employee in list!");
             }
-        } else {
-            System.out.println("There is no Employee in list!");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Data is Empty!");
         }
-    writeFileEmployee(employeeList);
     }
 
     @Override

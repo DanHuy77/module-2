@@ -123,6 +123,17 @@ public class CaseStudyFormatException extends Exception {
         System.out.println("Input Customer Code Succeeded");
     }
 
+    public static void serviceCodeUniqueCheck(String code) throws CaseStudyFormatException {
+        if (UniqueProperties.facilityServiceCodeList.size() > 0) {
+            for (String s : UniqueProperties.facilityServiceCodeList) {
+                if (s.equals(code)) {
+                    throw new CaseStudyFormatException("This Service code is already existed, please try again.");
+                }
+            }
+        }
+        System.out.println("Input Service Code Succeeded");
+    }
+
     public static void areaCheck(double area) throws CaseStudyFormatException {
         if (area <= 30) {
             throw new CaseStudyFormatException("Area must be larger than 30m2, please try again.");

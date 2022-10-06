@@ -1,5 +1,7 @@
 package case_study.service;
 
+import java.io.IOException;
+
 public interface IBookingService extends IService {
     @Override
     void addNew();
@@ -8,5 +10,5 @@ public interface IBookingService extends IService {
     void displayList();
 
 
-    void addNewBooking();
+    void addNewBooking() throws IOException;
 }

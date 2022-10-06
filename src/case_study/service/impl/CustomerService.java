@@ -18,7 +18,7 @@ import java.util.Scanner;
 
 public class CustomerService implements ICustomerService {
     private Scanner input = new Scanner(System.in);
-    private static List<Customer> customerList = new LinkedList<>();
+    public static List<Customer> customerList = new LinkedList<>();
 
 
 //    static {
@@ -160,13 +160,17 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public void displayList() throws IOException {
-        customerList = readFileCustomer();
-        if (customerList.size() != 0) {
-            for (Customer customer : customerList) {
-                System.out.println(customer);
+        try {
+            customerList = readFileCustomer();
+            if (customerList.size() != 0) {
+                for (Customer customer : customerList) {
+                    System.out.println(customer);
+                }
+            } else {
+                System.out.println("There is no Customer in list");
             }
-        } else {
-            System.out.println("There is no Customer in list!");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Data is Empty!");
         }
     }
 
